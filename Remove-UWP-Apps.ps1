@@ -1,4 +1,12 @@
-﻿# Configure the apps to be removed
+﻿# ----------------------------------------------------------------------------
+# Script: Remove UWP Apps
+# Version: 1.0
+# Author: Mike Galvin
+# Contact: mike@gal.vin or twitter.com/mikegalvin_
+# Date: 2019-08-19
+# ----------------------------------------------------------------------------
+
+# Configure the apps to be removed
 $AppsList = "Microsoft.BingWeather",
             "Microsoft.DesktopAppInstaller",
             "Microsoft.GetHelp",
