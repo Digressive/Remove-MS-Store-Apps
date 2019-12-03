@@ -37,3 +37,11 @@ Get-AppxProvisionedPackage -Online | Select Displayname
 ```
 
 Use this switch along with the full path to the txt file contain the list of applications to remove. I've included example files in this repo.
+
+### Example
+
+``` txt
+Remove-UWP-Apps.ps1 -List C:\foo\uwp-apps-1909.txt
+```
+
+This will remove the apps listed in the txt file for both the current logged on user and for the device itself.
