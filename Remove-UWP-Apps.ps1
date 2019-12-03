@@ -1,80 +1,90 @@
-﻿# ----------------------------------------------------------------------------
-# Script: Remove UWP Apps
-# Version: 1.0
-# Author: Mike Galvin
-# Contact: mike@gal.vin or twitter.com/mikegalvin_
-# Date: 2019-08-19
-# ----------------------------------------------------------------------------
+﻿<#PSScriptInfo
 
-# Configure the apps to be removed
-$AppsList = "Microsoft.BingWeather",
-            "Microsoft.DesktopAppInstaller",
-            "Microsoft.GetHelp",
-            "Microsoft.Getstarted",
-            "Microsoft.HEIFImageExtension",
-            "Microsoft.Messaging",
-            "Microsoft.Microsoft3DViewer",
-            "Microsoft.MicrosoftOfficeHub",
-            "Microsoft.MicrosoftSolitaireCollection",
-            "Microsoft.MicrosoftStickyNotes",
-            "Microsoft.MixedReality.Portal",
-            "Microsoft.MSPaint",
-            "Microsoft.Office.OneNote",
-            "Microsoft.OneConnect",
-            "Microsoft.People",
-            "Microsoft.Print3D",
-            "Microsoft.ScreenSketch",
-            "Microsoft.SkypeApp",
-            "Microsoft.StorePurchaseApp",
-            "Microsoft.VP9VideoExtensions",
-            "Microsoft.Wallet",
-            "Microsoft.WebMediaExtensions",
-            "Microsoft.WebpImageExtension",
-            "Microsoft.Windows.Photos",
-            "Microsoft.WindowsAlarms",
-            "Microsoft.WindowsCalculator",
-            "Microsoft.WindowsCamera",
-            "microsoft.windowscommunicationsapps",
-            "Microsoft.WindowsFeedbackHub",
-            "Microsoft.WindowsMaps",
-            "Microsoft.WindowsSoundRecorder",
-            "Microsoft.WindowsStore",
-            "Microsoft.Xbox.TCUI",
-            "Microsoft.XboxApp",
-            "Microsoft.XboxGameOverlay",
-            "Microsoft.XboxGamingOverlay",
-            "Microsoft.XboxIdentityProvider",
-            "Microsoft.XboxSpeechToTextOverlay",
-            "Microsoft.YourPhone",
-            "Microsoft.ZuneMusic",
-            "Microsoft.ZuneVideo"
+.VERSION 2.0
 
-# Remove the Apps listed above or report if app not present
+.GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
+
+.AUTHOR Mike Galvin twitter.com/mikegalvin_
+
+.COMPANYNAME Mike Galvin
+
+.COPYRIGHT (C) Mike Galvin. All rights reserved.
+
+.TAGS Microsoft Store Windows UWP in-box apps
+
+.LICENSEURI
+
+.PROJECTURI 
+
+.ICONURI
+
+.EXTERNALMODULEDEPENDENCIES 
+
+.REQUIREDSCRIPTS
+
+.EXTERNALSCRIPTDEPENDENCIES
+
+.RELEASENOTES
+
+#>
+
+<#
+    .SYNOPSIS
+    Removes specified UWP/Microsoft Store in-box apps from Windows 10
+
+    .DESCRIPTION
+    Remove UWP/Microsoft Store in-box apps from Windows 10
+    To retreive the names of the apps availble to all users, run the following command in an elevated PowerShell session:
+    Get-AppxProvisionedPackage -Online | Select Displayname
+
+    To retreive the names of the apps availble to only the current user, run the following command in a PowerShell session:
+    Get-AppxPackage | Select Name
+
+    .PARAMETER List
+    The full path to the txt file listing the apps to remove.
+
+    .EXAMPLE
+    Remove-UWP-Apps.ps1 -List C:\foo\uwp-apps-1909.txt
+
+    This command will attempt to remove all UWP apps listed in the specified text file.
+#>
+
+# Define switches and what variables they map to.
+[CmdletBinding()]
+Param(
+    [parameter(Mandatory=$True)]
+    [alias("List")]
+    $AppListFile)
+
+# Configure the apps to be removed.
+$AppsList = Get-Content $AppListFile
+
+# Remove the Apps listed in the file or report if app not present.
 ForEach ($App in $AppsList)
 {
     $PackageFullName = (Get-AppxPackage $App).PackageFullName
     $ProPackageFullName = (Get-AppxProvisionedPackage -Online | Where-Object {$_.Displayname -eq $App}).PackageName
-
-    If ($PackageFullName)
-    {
-        Write-Host "Removing Package: $App"
-        Remove-AppxPackage -Package $PackageFullName
-    }
-
-    Else
-    {
-        Write-Host "Unable to find package: $App"
-    }
-
-    If ($ProPackageFullName)
+        
+    If ($PackageFullName) 
     { 
-        Write-Host "Removing Provisioned Package: $ProPackageFullName"
-        Remove-AppxProvisionedPackage -Online -PackageName $ProPackageFullName 
+        Write-Verbose "Removing Package: $App"
+        Remove-AppxPackage -Package $PackageFullName 
     }
      
     Else 
     { 
-        Write-Host "Unable to find provisioned package: $App" 
+        Write-Host "Unable to find package: $App" 
+    } 
+ 
+    If ($ProPackageFullName) 
+    { 
+        Write-Verbose "Removing Provisioned Package: $ProPackageFullName"
+        Remove-AppxProvisionedPackage -Online -PackageName $ProPackageFullName 
+    } 
+
+    Else 
+    { 
+        Write-Verbose "Unable to find provisioned package: $App" 
     }
 }
 
