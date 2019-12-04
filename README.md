@@ -2,13 +2,13 @@
 
 Remove Microsoft store/UWP in-box apps from Windows 10
 
-For full instructions and documentation, [visit my blog post](https://gal.vin/2017/04/06/removing-uwp-apps-mdt/)
+For full instructions and documentation, [visit my blog post](https://gal.vin/2019/12/04/remove-uwp-apps/)
 
 Please consider donating to support my work:
 
-* You can support me [using Patreon.](https://www.patreon.com/mikegalvin)
+* You can support me [using Patreon](https://www.patreon.com/mikegalvin)
 * You can support me [using PayPal](https://www.paypal.me/digressive)
-* You can support me [using Kofi.](https://ko-fi.com/mikegalvin)
+* You can support me [using Kofi](https://ko-fi.com/mikegalvin)
 
 Send me a tweet if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
 
