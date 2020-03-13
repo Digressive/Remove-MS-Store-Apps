@@ -27,7 +27,7 @@ Please consider supporting my work:
 
 Remove Win10 Apps Utility can also be downloaded from:
 
-* [The Microsoft PowerShell Gallery](https://www.powershellgallery.com)
+* [The Microsoft PowerShell Gallery](https://www.powershellgallery.com/packages/Remove-Win10-Apps)
 
 Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
 
