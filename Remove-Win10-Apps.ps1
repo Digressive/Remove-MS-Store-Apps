@@ -34,11 +34,12 @@
 
     .DESCRIPTION
     Removes apps included in Windows 10
+    
+    To retrieve the names of the apps available to all users, run the following command in an elevated PowerShell session:
 
-    To retreive the names of the apps availible to all users, run the following command in an elevated PowerShell session:
     Get-AppxProvisionedPackage -Online | Select Displayname
 
-    To retreive the names of the apps availble to only the current user, run the following command in a PowerShell session:
+    To retrieve the names of the apps available to only the current user, run the following command in a PowerShell session:
     Get-AppxPackage | Select Name
 
     .PARAMETER List
@@ -53,9 +54,9 @@
     Do not add a trailing \ backslash.
 
     .EXAMPLE
-    Remove-Apps.ps1 -List C:\scripts\w10-apps-1909.txt -L C:\scripts\logs
+    Remove-W10-Apps.ps1 -List C:\scripts\w10-apps-1909.txt -L C:\scripts\logs
 
-    The above command will remove the apps listed in the specified text file, and will generate a log file.
+    The above command will remove the apps listed in the specified text file and will generate a log file.
 #>
 
 ## Set up command line switches.

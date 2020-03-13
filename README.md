@@ -35,19 +35,17 @@ Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
 
 ## Features and Requirements
 
-* It's designed to be run on a Hyper-V host.
-* The Hyper-V host must have the Hyper-V management PowerShell modules installed.
-* A leading feature is that the utility can be used to backup VMs to a device which the Hyper-V host does not have permission to run a regular export.
-* The utility can be used to backup VMs from Hyper-V hosts in a cluster configuration.
-* The utility requires at least PowerShell 5.0
-
-This utility has been tested on Windows 10, Windows Server 2019, Windows Server 2016 and Windows Server 2012 R2 (Datacenter and Core Installations) with PowerShell 5.0.
+* The utility will remove specified built-in apps for the current logged on user.
+* The utility will remove specified provisioned built-in apps from the system.
+* This utility can be used for imaging and OS deployment, as well as single user.
+* The utility requires a text file with a list of the apps to remove.
+* This utility has been tested on Windows 10.
 
 ## How to get create a list of apps to remove
 
 To use the script you'll need to make a text file with a list of the apps to remove.
 
-To get a list of installed UWP apps for the current user:
+To get a list of built-in apps for the current user:
 
 ``` powershell
 Get-AppxPackage | Select Name
@@ -55,7 +53,7 @@ Get-AppxPackage | Select Name
 
 To get a list of all the apps, use this command in an elevated PowerShell session:
 
-Note: Provisioned apps are the UWP apps that will be installed for all new users when they first log on.
+Note: Provisioned apps are the built-in apps that will be installed for all new users when they first log on.
 
 ``` powershell
 Get-AppxProvisionedPackage -Online | Select Displayname
@@ -89,7 +87,7 @@ Below is a table of apps names in PowerShell and what they are in Windows. You c
 | Microsoft.WebMediaExtensions | System | None |
 | Microsoft.WebpImageExtension | System | None |
 | Microsoft.Windows.Photos | Microsoft Photos app | (2) "Photos" and "Video editor" |
-| Microsoft.WindowsAlarms | Clock and Alarams app | Alarms & Clock |
+| Microsoft.WindowsAlarms | Clock and Alarms app | Alarms & Clock |
 | Microsoft.WindowsCalculator | Calculator app | Calculator |
 | Microsoft.WindowsCamera | Camera app | Camera |
 | microsoft.windowscommunicationsapps | Calendar and Mail apps | (2) "Calendar" and "Mail" |
@@ -120,7 +118,7 @@ Here’s a list of all the command line switches and example configurations.
 ### Example
 
 ``` txt
-Remove-Apps.ps1 -List C:\scripts\w10-apps-1909.txt -L C:\scripts\logs
+Remove-W10-Apps.ps1 -List C:\scripts\w10-apps-1909.txt -L C:\scripts\logs
 ```
 
-The above command will remove the apps listed in the specified text file, and will generate a log file.
+The above command will remove the apps listed in the specified text file and will generate a log file.
