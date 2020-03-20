@@ -15,7 +15,7 @@ Customisable Windows 10 app removal utility
  d888888888b  888 888P 888 888P  Y88D   8888 8888  888   888 888 888  888     Y8b Y    Mike Galvin
 d8888888b Y8b 888 88   888 88   d,dP    'Y88 88P'  888   888 888 888  888      888   https://gal.vin
               888      888                                                     888
-              888      888                   Version 2020.03.13 (⌐■_■)         888
+              888      888                   Version 20.03.20 (⌐■_■)           888
 ```
 
 For full instructions and documentation, [visit my site.](https://gal.vin/2019/12/04/remove-uwp-apps)
@@ -112,8 +112,8 @@ Here’s a list of all the command line switches and example configurations.
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
 | -List | The full path to the txt file listing the apps to remove. | C:\scripts\w10-apps-1909.txt |
-| -L | The path to output the log file to. The file name will be Remove-W10-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
+| -L | The path to output the log file to. The file name will be Remove-W10-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
 
 ### Example
 

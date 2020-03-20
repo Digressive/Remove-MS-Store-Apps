@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 2020.03.13
+.VERSION 20.03.20
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -86,7 +86,7 @@ If ($NoBanner -eq $False)
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   d888888888b  888 888P 888 888P  Y88D   8888 8888  888   888 888 888  888     Y8b Y    Mike Galvin      "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "  d8888888b Y8b 888 88   888 88   d,dP    'Y88 88P'  888   888 888 888  888      888   https://gal.vin    "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                888      888                                                     888                      "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                888      888                   Version 2020.03.13 (⌐■_■)         888                      "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                888      888                   Version 20.03.20 (⌐■_■)           888                      "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                                                                                                          "
     Write-Host -Object ""
 }
