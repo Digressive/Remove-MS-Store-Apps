@@ -61,49 +61,51 @@ Get-AppxProvisionedPackage -Online | Select Displayname
 
 Below is a table of apps names in PowerShell and what they are in Windows. You can use this table to create your own removal list.
 
-| PowerShell Display Name | Description | App name in Start Menu |
-| ----------------------- | ----------- | ---------------------- |
-| Microsoft.BingWeather | Weather app | Weather |
-| Microsoft.DesktopAppInstaller | System | None |
-| Microsoft.GetHelp | Help app | Get Help |
-| Microsoft.Getstarted | Tips app | Tips |
-| Microsoft.HEIFImageExtension | System | None |
-| Microsoft.Messaging | Messaging app | Messaging |
-| Microsoft.Microsoft3DViewer | 3D Viewer app | 3D Viewer |
-| Microsoft.MicrosoftOfficeHub | Office 365 hub app | Office |
-| Microsoft.MicrosoftSolitaireCollection | Collection of games | Microsoft Solitaire Collection |
-| Microsoft.MicrosoftStickyNotes | Sticky Notes app | Sticky Notes |
-| Microsoft.MixedReality.Portal | Mixed Reality app | Mixed Reality Portal |
-| Microsoft.MSPaint | Paint 3D app | Paint 3D |
-| Microsoft.Office.OneNote | OneNote app | OneNote |
-| Microsoft.OneConnect | ??? | None |
-| Microsoft.People | Contacts management app | People |
-| Microsoft.Print3D | 3D Printing app | Print 3D |
-| Microsoft.ScreenSketch | Screen shot app | Snip & Sketch |
-| Microsoft.SkypeApp | Skype app | Skype |
-| Microsoft.StorePurchaseApp | System | None |
-| Microsoft.VP9VideoExtensions | System | None |
-| Microsoft.Wallet | System | None |
-| Microsoft.WebMediaExtensions | System | None |
-| Microsoft.WebpImageExtension | System | None |
-| Microsoft.Windows.Photos | Microsoft Photos app | (2) "Photos" and "Video editor" |
-| Microsoft.WindowsAlarms | Clock and Alarms app | Alarms & Clock |
-| Microsoft.WindowsCalculator | Calculator app | Calculator |
-| Microsoft.WindowsCamera | Camera app | Camera |
-| microsoft.windowscommunicationsapps | Calendar and Mail apps | (2) "Calendar" and "Mail" |
-| Microsoft.WindowsFeedbackHub | Feedback Hub app | Feedback Hub |
-| Microsoft.WindowsMaps | Bing Maps app | Maps |
-| Microsoft.WindowsSoundRecorder | Audio recording app | Voice Recorder |
-| Microsoft.WindowsStore | Microsoft Store app | Microsoft Store |
-| Microsoft.Xbox.TCUI | System, part of Xbox | None |
-| Microsoft.XboxApp | Xbox Console Companion app | Xbox Console Companion |
-| Microsoft.XboxGameOverlay | System, part of Xbox | None |
-| Microsoft.XboxGamingOverlay | Xbox Game Bar app | Xbox Game Bar |
-| Microsoft.XboxIdentityProvider | System, part of Xbox | None |
-| Microsoft.XboxSpeechToTextOverlay | System, part of Xbox | None |
-| Microsoft.YourPhone | Phone linking app | Your Phone |
-| Microsoft.ZuneMusic | Groove Music app | Groove Music |
-| Microsoft.ZuneVideo | Films & TV app | Films & TV |
+| PowerShell Display Name | Description | App name in Start Menu | Notes |
+| ----------------------- | ----------- | ---------------------- | ----- |
+| Microsoft.549981C3F5F10 | Cortana app | Cortana | New in 2004 |
+| Microsoft.BingWeather | Weather app | Weather | N/A |
+| Microsoft.DesktopAppInstaller | System | None | N/A |
+| Microsoft.GetHelp | Help app | Get Help | N/A |
+| Microsoft.Getstarted | Tips app | Tips | N/A |
+| Microsoft.HEIFImageExtension | System | None | N/A |
+| Microsoft.Messaging | Messaging app | Messaging | Removed in 2004 |
+| Microsoft.Microsoft3DViewer | 3D Viewer app | 3D Viewer | N/A |
+| Microsoft.MicrosoftOfficeHub | Office 365 hub app | Office | N/A |
+| Microsoft.MicrosoftSolitaireCollection | Collection of games | Microsoft Solitaire Collection | N/A |
+| Microsoft.MicrosoftStickyNotes | Sticky Notes app | Sticky Notes | N/A |
+| Microsoft.MixedReality.Portal | Mixed Reality app | Mixed Reality Portal | N/A |
+| Microsoft.MSPaint | Paint 3D app | Paint 3D | N/A |
+| Microsoft.Office.OneNote | OneNote app | OneNote | N/A |
+| Microsoft.OneConnect | ??? | None | Removed in 2004 |
+| Microsoft.People | Contacts management app | People | N/A |
+| Microsoft.Print3D | 3D Printing app | Print 3D | Removed in 2004 |
+| Microsoft.ScreenSketch | Screen shot app | Snip & Sketch | N/A |
+| Microsoft.SkypeApp | Skype app | Skype | N/A |
+| Microsoft.StorePurchaseApp | System | None | N/A |
+| Microsoft.VCLibs.140.00 | System | None | New in 2004 |
+| Microsoft.VP9VideoExtensions | System | None | N/A |
+| Microsoft.Wallet | System | None | N/A |
+| Microsoft.WebMediaExtensions | System | None | N/A |
+| Microsoft.WebpImageExtension | System | None | N/A |
+| Microsoft.Windows.Photos | Microsoft Photos app | (2) "Photos" and "Video editor" | N/A |
+| Microsoft.WindowsAlarms | Clock and Alarms app | Alarms & Clock | N/A |
+| Microsoft.WindowsCalculator | Calculator app | Calculator | N/A |
+| Microsoft.WindowsCamera | Camera app | Camera | N/A |
+| microsoft.windowscommunicationsapps | Calendar and Mail apps | (2) "Calendar" and "Mail" | N/A |
+| Microsoft.WindowsFeedbackHub | Feedback Hub app | Feedback Hub | N/A |
+| Microsoft.WindowsMaps | Bing Maps app | Maps | N/A |
+| Microsoft.WindowsSoundRecorder | Audio recording app | Voice Recorder | N/A |
+| Microsoft.WindowsStore | Microsoft Store app | Microsoft Store | N/A |
+| Microsoft.Xbox.TCUI | System, part of Xbox | None | N/A |
+| Microsoft.XboxApp | Xbox Console Companion app | Xbox Console Companion | N/A |
+| Microsoft.XboxGameOverlay | System, part of Xbox | None | N/A |
+| Microsoft.XboxGamingOverlay | Xbox Game Bar app | Xbox Game Bar | N/A |
+| Microsoft.XboxIdentityProvider | System, part of Xbox | None | N/A |
+| Microsoft.XboxSpeechToTextOverlay | System, part of Xbox | None | N/A |
+| Microsoft.YourPhone | Phone linking app | Your Phone | N/A |
+| Microsoft.ZuneMusic | Groove Music app | Groove Music | N/A |
+| Microsoft.ZuneVideo | Films & TV app | Films & TV | N/A |
 
 ### Configuration
 
@@ -111,14 +113,14 @@ Here’s a list of all the command line switches and example configurations.
 
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
-| -List | The full path to the txt file listing the apps to remove. | C:\scripts\w10-apps-1909.txt |
+| -List | The full path to the txt file listing the apps to remove. | C:\scripts\w10-apps-2004.txt |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
 | -L | The path to output the log file to. The file name will be Remove-W10-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
 
 ### Example
 
 ``` txt
-Remove-W10-Apps.ps1 -List C:\scripts\w10-apps-1909.txt -L C:\scripts\logs
+Remove-W10-Apps.ps1 -List C:\scripts\w10-apps-2004.txt -L C:\scripts\logs
 ```
 
 The above command will remove the apps listed in the specified text file and will generate a log file.
