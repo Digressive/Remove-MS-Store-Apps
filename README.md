@@ -18,7 +18,7 @@ d8888888b Y8b 888 88   888 88   d,dP    'Y88 88P'  888   888 888 888  888      8
               888      888                   Version 20.03.20 (⌐■_■)           888
 ```
 
-For full instructions and documentation, [visit my site.](https://gal.vin/2019/12/04/remove-uwp-apps)
+For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-uwp-apps)
 
 Please consider supporting my work:
 
