@@ -1,49 +1,55 @@
-# Remove Win10 Apps Utility
+# Remove MS Store Apps Utility
 
-Customisable Windows 10 app removal utility
+Customisable Windows 10/11 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
 
 ``` txt
-888 88e                                                    Y8b Y8b Y888P ,e,           d88   e88 88e
-888 888D  ,e e,  888 888 8e   e88 88e  Y8b Y888P  ,e e,     Y8b Y8b Y8P      888 8e   d888  d888 888b
-888 88   d88 88b 888 888 88b d888 888b  Y8b Y8P  d88 88b     Y8b Y8b Y   888 888 88b d 888 C8888 8888D
-888 b,   888   , 888 888 888 Y888 888P   Y8b     888   ,      Y8b Y8b    888 888 888   888  Y888 888P
-888 88b,   YeeP  888 888 888   88 88      Y8P      YeeP        Y8P Y     888 888 888   888    88 88
-
-    e Y8b                               8888 8888   d8   ,e, 888 ,e,   d8
-   d8b Y8b    888 88e  888 88e   dP Y   8888 8888  d88       888      d88   Y8b Y888P
-  d888b Y8b   888 888b 888 888b C88b    8888 8888 d88888 888 888 888 d88888  Y8b Y8P
- d888888888b  888 888P 888 888P  Y88D   8888 8888  888   888 888 888  888     Y8b Y    Mike Galvin
-d8888888b Y8b 888 88   888 88   d,dP    'Y88 88P'  888   888 888 888  888      888   https://gal.vin
-              888      888                                                     888
-              888      888                   Version 20.03.20 (⌐■_■)           888
+ _____                                 __  __  _____    _____ _
+|  __ \                               |  \/  |/ ____|  / ____| |
+| |__) |___ _ __ ___   _____   _____  | \  / | (___   | (___ | |_ ___  _ __ ___
+|  _  // _ \ '_ ` _ \ / _ \ \ / / _ \ | |\/| |\___ \   \___ \| __/ _ \| '__/ _ \
+| | \ \  __/ | | | | | (_) \ V /  __/ | |  | |____) |  ____) | || (_) | | |  __/
+|_|  \_\___|_| |_| |_|\___/ \_/ \___| |_|_ |_|_____/  |_____/ \__\___/|_|  \___|
+    /\                     | |  | | | (_) (_) |
+   /  \   _ __  _ __  ___  | |  | | |_ _| |_| |_ _   _
+  / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |
+ / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |
+/_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |
+         | |   | |                                __/ |        Mike Galvin
+         |_|   |_|        Version 07.09.21       |___/       https://gal.vin
 ```
 
-For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-uwp-apps)
+For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-ms-store-apps-utility)
 
-Please consider supporting my work:
-
-* Sign up [using Patreon.](https://www.patreon.com/mikegalvin)
-* Support with a one-time payment [using PayPal.](https://www.paypal.me/digressive)
-
-Remove Win10 Apps Utility can also be downloaded from:
+Remove MS Store Apps Utility can also be downloaded from:
 
 * [The Microsoft PowerShell Gallery](https://www.powershellgallery.com/packages/Remove-Win10-Apps)
 
-Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
+Please consider supporting my work:
+
+* Sign up using **[Patreon](https://www.patreon.com/mikegalvin)**.
+* Support with a one-time donation using [**PayPal**](https://www.paypal.me/digressive).
+
+If you’d like to contact me, please leave a comment, send me a [**tweet or DM**](https://twitter.com/mikegalvin_), or you can join my [**Discord server**](discord.gg/QtrQE3y).
 
 -Mike
 
 ## Features and Requirements
 
-* The utility will remove specified built-in apps for the current logged on user.
-* The utility will remove specified provisioned built-in apps from the system.
+* The utility will remove specified apps for the current logged on user.
+* The utility will remove specified provisioned apps from the system.
 * This utility can be used for imaging and OS deployment, as well as single user.
 * The utility requires a text file with a list of the apps to remove.
-* This utility has been tested on Windows 10.
+* This utility has been tested on Windows 10 and Windows 11.
 
 ## How to get create a list of apps to remove
 
 To use the script you'll need to make a text file with a list of the apps to remove.
+
+To get a list of all the apps, use this command in an elevated Powershell session:
+
+``` powershell
+Get-AppxProvisionedPackage -Online | Select DisplayName
+```
 
 To get a list of built-in apps for the current user:
 
@@ -51,61 +57,72 @@ To get a list of built-in apps for the current user:
 Get-AppxPackage | Select Name
 ```
 
-To get a list of all the apps, use this command in an elevated PowerShell session:
+## How to find the index number of the image in the wim file
 
-Note: Provisioned apps are the built-in apps that will be installed for all new users when they first log on.
+Run the following command to find out what images are present in the wim file:
 
 ``` powershell
-Get-AppxProvisionedPackage -Online | Select Displayname
+Get-WindowsImage -ImagePath "C:\foo\Windows 10\sources\install.wim" | Format-Table -Property ImageIndex, ImageName
 ```
 
-Below is a table of apps names in PowerShell and what they are in Windows. You can use this table to create your own removal list.
+Here is a table of apps names in Powershell and what they relate to in Windows. You can use this table to create your own removal list.
 
-| PowerShell Display Name | Description | App name in Start Menu | Notes |
-| ----------------------- | ----------- | ---------------------- | ----- |
-| Microsoft.549981C3F5F10 | Cortana app | Cortana | New in 2004 |
-| Microsoft.BingWeather | Weather app | Weather | N/A |
-| Microsoft.DesktopAppInstaller | System | None | N/A |
-| Microsoft.GetHelp | Help app | Get Help | N/A |
-| Microsoft.Getstarted | Tips app | Tips | N/A |
-| Microsoft.HEIFImageExtension | System | None | N/A |
-| Microsoft.Messaging | Messaging app | Messaging | Removed in 2004 |
-| Microsoft.Microsoft3DViewer | 3D Viewer app | 3D Viewer | N/A |
-| Microsoft.MicrosoftOfficeHub | Office 365 hub app | Office | N/A |
-| Microsoft.MicrosoftSolitaireCollection | Collection of games | Microsoft Solitaire Collection | N/A |
-| Microsoft.MicrosoftStickyNotes | Sticky Notes app | Sticky Notes | N/A |
-| Microsoft.MixedReality.Portal | Mixed Reality app | Mixed Reality Portal | N/A |
-| Microsoft.MSPaint | Paint 3D app | Paint 3D | N/A |
-| Microsoft.Office.OneNote | OneNote app | OneNote | N/A |
-| Microsoft.OneConnect | ??? | None | Removed in 2004 |
-| Microsoft.People | Contacts management app | People | N/A |
-| Microsoft.Print3D | 3D Printing app | Print 3D | Removed in 2004 |
-| Microsoft.ScreenSketch | Screen shot app | Snip & Sketch | N/A |
-| Microsoft.SkypeApp | Skype app | Skype | N/A |
-| Microsoft.StorePurchaseApp | System | None | N/A |
-| Microsoft.VCLibs.140.00 | System | None | New in 2004 |
-| Microsoft.VP9VideoExtensions | System | None | N/A |
-| Microsoft.Wallet | System | None | N/A |
-| Microsoft.WebMediaExtensions | System | None | N/A |
-| Microsoft.WebpImageExtension | System | None | N/A |
-| Microsoft.Windows.Photos | Microsoft Photos app | (2) "Photos" and "Video editor" | N/A |
-| Microsoft.WindowsAlarms | Clock and Alarms app | Alarms & Clock | N/A |
-| Microsoft.WindowsCalculator | Calculator app | Calculator | N/A |
-| Microsoft.WindowsCamera | Camera app | Camera | N/A |
-| microsoft.windowscommunicationsapps | Calendar and Mail apps | (2) "Calendar" and "Mail" | N/A |
-| Microsoft.WindowsFeedbackHub | Feedback Hub app | Feedback Hub | N/A |
-| Microsoft.WindowsMaps | Bing Maps app | Maps | N/A |
-| Microsoft.WindowsSoundRecorder | Audio recording app | Voice Recorder | N/A |
-| Microsoft.WindowsStore | Microsoft Store app | Microsoft Store | N/A |
-| Microsoft.Xbox.TCUI | System, part of Xbox | None | N/A |
-| Microsoft.XboxApp | Xbox Console Companion app | Xbox Console Companion | N/A |
-| Microsoft.XboxGameOverlay | System, part of Xbox | None | N/A |
-| Microsoft.XboxGamingOverlay | Xbox Game Bar app | Xbox Game Bar | N/A |
-| Microsoft.XboxIdentityProvider | System, part of Xbox | None | N/A |
-| Microsoft.XboxSpeechToTextOverlay | System, part of Xbox | None | N/A |
-| Microsoft.YourPhone | Phone linking app | Your Phone | N/A |
-| Microsoft.ZuneMusic | Groove Music app | Groove Music | N/A |
-| Microsoft.ZuneVideo | Films & TV app | Films & TV | N/A |
+| PowerShell Display Name | App name | Windows 10 Notes | Windows 11 Notes |
+| ----------------------- | -------- | ---------------- | ---------------- |
+| Microsoft.549981C3F5F10 | Cortana | New in 2004 | No change |
+| Microsoft.BingNews | Microsoft News | N/A | New in Win 11 21H2 |
+| Microsoft.BingWeather | Weather | No change | No change |
+| Microsoft.DesktopAppInstaller | None | No change | No change |
+| Microsoft.GamingApp | Xbox | N/A | Name Changed from XboxApp |
+| Microsoft.GetHelp | Get Help | No change | No change |
+| Microsoft.Getstarted | Tips | No change | No change |
+| Microsoft.HEIFImageExtension | None | No change | No change |
+| Microsoft.Messaging | Messaging | Removed in 2004 | Not present |
+| Microsoft.Microsoft3DViewer | 3D Viewer | No change | Not present |
+| Microsoft.MicrosoftEdge.Stable | Microsoft Edge | New in 21H1 | No change |
+| Microsoft.MicrosoftOfficeHub | Office | No change | No change |
+| Microsoft.MicrosoftSolitaireCollection | Microsoft Solitaire Collection | No change | No change |
+| Microsoft.MicrosoftStickyNotes | Sticky Notes | No change | No change |
+| Microsoft.MixedReality.Portal | Mixed Reality Portal | No change | Not present |
+| Microsoft.Paint | Paint | N/A | New in Win 11 21H2 |
+| Microsoft.MSPaint | Paint 3D | No change | Not present |
+| Microsoft.Office.OneNote | OneNote | No change | Not present |
+| Microsoft.OneConnect | None | Removed in 2004 | Not present |
+| Microsoft.People | People | No change | No change |
+| Microsoft.PowerAutomateDesktop | Power Automate | N/A | New in Win 11 21H2 |
+| Microsoft.Print3D | Print 3D | Removed in 2004 | Not present |
+| Microsoft.ScreenSketch | Snip & Sketch | No change | No change |
+| Microsoft.SecHealthUI | None | N/A | New in Win 11 21H2 |
+| Microsoft.SkypeApp | Skype | No change | Not present |
+| Microsoft.StorePurchaseApp | None | No change | No change |
+| Microsoft.Todos | Microsoft To Do | N/A | New in Win 11 21H2 |
+| Microsoft.UI.Xaml.2.4 | None | N/A | New in Win 11 21H2 |
+| Microsoft.VCLibs.140.00 | None | New in 2004 | No change |
+| Microsoft.VP9VideoExtensions | None | No change | No change |
+| Microsoft.Wallet | None | No change | Not present |
+| Microsoft.WebMediaExtensions | None | No change | No change |
+| Microsoft.WebpImageExtension | None | No change | No change |
+| Microsoft.Windows.Photos | (2) "Photos" and "Video editor" | No change | No change |
+| Microsoft.WindowsAlarms | Alarms & Clock | No change | No change |
+| Microsoft.WindowsCalculator | Calculator | No change | No change |
+| Microsoft.WindowsCamera | Camera | No change | No change |
+| microsoft.windowscommunicationsapps | (2) "Calendar" and "Mail" | No change | No change |
+| Microsoft.WindowsFeedbackHub | Feedback Hub | No change | No change |
+| Microsoft.WindowsMaps | Maps | No change | No change |
+| Microsoft.WindowsNotepad | Notepad | N/A | New in Win 11 21H2 |
+| Microsoft.WindowsSoundRecorder | Voice Recorder | No change | No change |
+| Microsoft.WindowsStore | Microsoft Store | No change | No change |
+| Microsoft.WindowsTerminal | Terminal | N/A | New in Win 11 21H2 |
+| Microsoft.Xbox.TCUI | None | No change | No change |
+| Microsoft.XboxApp | Xbox Console Companion | No change | Name changed to GamingApp |
+| Microsoft.XboxGameOverlay | None | No change | No change |
+| Microsoft.XboxGamingOverlay | Xbox Game Bar | No change | No change |
+| Microsoft.XboxIdentityProvider | None | No change | No change |
+| Microsoft.XboxSpeechToTextOverlay | None | No change | No change |
+| Microsoft.YourPhone | Your Phone | No change | No change |
+| Microsoft.ZuneMusic | Groove Music | No change | No change |
+| Microsoft.ZuneVideo | Films & TV | No change | No change |
+| MicrosoftWindows.Client.WebExperience | None | N/A | New in Win 11 21H2 |
 
 ### Configuration
 
@@ -114,13 +131,16 @@ Here’s a list of all the command line switches and example configurations.
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
 | -List | The full path to the txt file listing the apps to remove. | C:\scripts\w10-apps-2004.txt |
+| -Wim | The full path to the wim file to remove the apps from. | C:\foo\Windows 10\sources\install.wim |
+| -WimIndex | The index number of the image to operate on. | 1 |
+| -WimMountPath | The full path to a folder that the wim file should be mounted to. | C:\foo\w10mnt |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
-| -L | The path to output the log file to. The file name will be Remove-W10-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
+| -L | The path to output the log file to. The file name will be The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
 
 ### Example
 
 ``` txt
-Remove-W10-Apps.ps1 -List C:\scripts\w10-apps-2004.txt -L C:\scripts\logs
+Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-apps-2004.txt -L C:\scripts\logs
 ```
 
-The above command will remove the apps listed in the specified text file and will generate a log file.
+The above command will remove the apps in the specified text file from the running system for all users, and will generate a log file.
