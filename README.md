@@ -15,7 +15,7 @@ Customisable Windows 10/11 Microsoft Store App removal utility, previously known
  / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |
 /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |
          | |   | |                                __/ |        Mike Galvin
-         |_|   |_|        Version 07.09.21       |___/       https://gal.vin
+         |_|   |_|        Version 21.12.08       |___/       https://gal.vin
 ```
 
 For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-ms-store-apps-utility)
@@ -130,12 +130,12 @@ Here’s a list of all the command line switches and example configurations.
 
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
-| -List | The full path to the txt file listing the apps to remove. | C:\scripts\w10-apps-2004.txt |
-| -Wim | The full path to the wim file to remove the apps from. | C:\foo\Windows 10\sources\install.wim |
+| -List | The full path to the txt file listing the apps to remove. | ```C:\scripts\w10-apps-2004.txt``` |
+| -Wim | The full path to the wim file to remove the apps from. | ```C:\foo\Windows 10\sources\install.wim``` |
 | -WimIndex | The index number of the image to operate on. | 1 |
-| -WimMountPath | The full path to a folder that the wim file should be mounted to. | C:\foo\w10mnt |
+| -WimMountPath | The full path to a folder that the wim file should be mounted to. | ```C:\foo\w10mnt``` |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
-| -L | The path to output the log file to. The file name will be The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | C:\scripts\logs |
+| -L | The path to output the log file to. The file name will be The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | ```C:\scripts\logs``` |
 
 ### Example
 

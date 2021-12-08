@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 07.09.21
+.VERSION 21.12.08
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -84,7 +84,6 @@ Param(
     [ValidateScript({Test-Path $_ -PathType 'Container'})]
     $WimMntPath,
     [alias("L")]
-    [ValidateScript({Test-Path $_ -PathType 'Container'})]
     $LogPath,
     [switch]$NoBanner)
 
@@ -104,7 +103,7 @@ If ($NoBanner -eq $False)
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |                           "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                           "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            | |   | |                                __/ |        Mike Galvin        "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|        Version 07.09.21       |___/       https://gal.vin      "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|        Version 21.12.08       |___/       https://gal.vin      "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                                                                                     "
     Write-Host -Object ""
 }
@@ -113,6 +112,14 @@ If ($NoBanner -eq $False)
 ## If the log file already exists, clear it.
 If ($LogPath)
 {
+    ## Make sure the log directory exists.
+    $LogPathFolderT = Test-Path $LogPath
+
+    If ($LogPathFolderT -eq $False)
+    {
+        New-Item $LogPath -ItemType Directory -Force | Out-Null
+    }
+
     $LogFile = ("Remove-MS-Store-Apps_{0:yyyy-MM-dd_HH-mm-ss}.log" -f (Get-Date))
     $Log = "$LogPath\$LogFile"
 
@@ -179,10 +186,20 @@ Function Write-Log($Type, $Evt)
 ## Configure the apps to be removed.
 $AppsList = Get-Content $AppListFile
 
+## getting Windows Version info
+$OSVMaj = [environment]::OSVersion.Version | Select-Object -expand major
+$OSVMin = [environment]::OSVersion.Version | Select-Object -expand minor
+$OSVBui = [environment]::OSVersion.Version | Select-Object -expand build
+$OSV = "$OSVMaj" + "." + "$OSVMin" + "." + "$OSVBui"
+
 ##
 ## Display the current config and log if configured.
 ##
+
 Write-Log -Type Conf -Evt "************ Running with the following config *************."
+Write-Log -Type Conf -Evt "Utility Version:.......21.12.08"
+Write-Log -Type Conf -Evt "Hostname:..............$Env:ComputerName."
+Write-Log -Type Conf -Evt "Windows Version:.......$OSV."
 Write-Log -Type Conf -Evt "Using list from file:..$AppListFile."
 
 If ($Null -ne $WimFile)
