@@ -2,22 +2,6 @@
 
 Customisable Windows 10/11 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
 
-``` txt
- _____                                 __  __  _____    _____ _
-|  __ \                               |  \/  |/ ____|  / ____| |
-| |__) |___ _ __ ___   _____   _____  | \  / | (___   | (___ | |_ ___  _ __ ___
-|  _  // _ \ '_ ` _ \ / _ \ \ / / _ \ | |\/| |\___ \   \___ \| __/ _ \| '__/ _ \
-| | \ \  __/ | | | | | (_) \ V /  __/ | |  | |____) |  ____) | || (_) | | |  __/
-|_|  \_\___|_| |_| |_|\___/ \_/ \___| |_|_ |_|_____/  |_____/ \__\___/|_|  \___|
-    /\                     | |  | | | (_) (_) |
-   /  \   _ __  _ __  ___  | |  | | |_ _| |_| |_ _   _
-  / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |
- / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |
-/_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |
-         | |   | |                                __/ |        Mike Galvin
-         |_|   |_|        Version 21.12.08       |___/       https://gal.vin
-```
-
 For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-ms-store-apps-utility)
 
 Remove MS Store Apps Utility can also be downloaded from:
