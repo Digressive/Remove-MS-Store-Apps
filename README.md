@@ -2,7 +2,7 @@
 
 Customisable Windows 10/11 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
 
-For full instructions and documentation, [visit my site.](https://gal.vin/posts/remove-ms-store-apps-utility)
+For full instructions and documentation, [visit my site.](https://gal.vin/utils/remove-ms-store-apps-utility/)
 
 Remove MS Store Apps Utility can also be downloaded from:
 
@@ -29,7 +29,7 @@ If you’d like to contact me, please leave a comment, send me a [**tweet or DM*
 
 To use the script you'll need to make a text file with a list of the apps to remove.
 
-To get a list of all the apps, use this command in an elevated Powershell session:
+To get a list of all the apps, use this command in an elevated PowerShell session:
 
 ``` powershell
 Get-AppxProvisionedPackage -Online | Select DisplayName
@@ -49,7 +49,7 @@ Run the following command to find out what images are present in the wim file:
 Get-WindowsImage -ImagePath "C:\foo\Windows 10\sources\install.wim" | Format-Table -Property ImageIndex, ImageName
 ```
 
-Here is a table of apps names in Powershell and what they relate to in Windows. You can use this table to create your own removal list.
+Here is a table of apps names in PowerShell and what they relate to in Windows. You can use this table to create your own removal list.
 
 | PowerShell Display Name | App name | Windows 10 Notes | Windows 11 Notes |
 | ----------------------- | -------- | ---------------- | ---------------- |

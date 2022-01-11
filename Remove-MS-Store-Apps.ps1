@@ -14,7 +14,7 @@
 
 .LICENSEURI
 
-.PROJECTURI https://gal.vin/posts/remove-uwp-apps/
+.PROJECTURI https://gal.vin/utils/remove-ms-store-apps-utility/
 
 .ICONURI
 
