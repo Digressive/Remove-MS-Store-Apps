@@ -4,16 +4,16 @@ Customisable Windows 10/11 Microsoft Store App removal utility, previously known
 
 For full instructions and documentation, [visit my site.](https://gal.vin/utils/remove-ms-store-apps-utility/)
 
+Please consider supporting my work:
+
+* Sign up [using Patreon.](https://www.patreon.com/mikegalvin)
+* Support with a one-time payment [using PayPal.](https://www.paypal.me/digressive)
+
 Remove MS Store Apps Utility can also be downloaded from:
 
 * [The Microsoft PowerShell Gallery](https://www.powershellgallery.com/packages/Remove-Win10-Apps)
 
-Please consider supporting my work:
-
-* Sign up using **[Patreon](https://www.patreon.com/mikegalvin)**.
-* Support with a one-time donation using [**PayPal**](https://www.paypal.me/digressive).
-
-If you’d like to contact me, please leave a comment, send me a [**tweet or DM**](https://twitter.com/mikegalvin_), or you can join my [**Discord server**](http://discord.gg/5ZsnJ5k).
+Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
 
 -Mike
 
