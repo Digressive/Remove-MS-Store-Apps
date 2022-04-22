@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 22.03.27
+.VERSION 22.04.22
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -18,7 +18,7 @@
 
 .ICONURI
 
-.EXTERNALMODULEDEPENDENCIES 
+.EXTERNALMODULEDEPENDENCIES
 
 .REQUIREDSCRIPTS
 
@@ -55,6 +55,7 @@
 
     .PARAMETER WimMountPath
     The full path to a folder that the wim file should be mounted to.
+    If none is configured the %temp% folder will be used.
 
     .PARAMETER NoBanner
     Use this option to hide the ASCII art title in the console.
@@ -64,8 +65,11 @@
     The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log
     Do not add a trailing \ backslash.
 
+   .PARAMETER LogRotate
+    Instructs the utility to remove logs older than a specified number of days.
+
     .EXAMPLE
-    Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-apps-2004.txt -L C:\scripts\logs
+    Remove-MS-Store-Apps.ps1 -List C:\scripts\win10-apps-2004.txt -L C:\scripts\logs
 
     The above command will remove the apps in the specified text file from the running system for all users, and will generate a log file.
 #>
@@ -81,10 +85,11 @@ Param(
     [alias("WimIndex")]
     $WIndex,
     [alias("WimMountPath")]
-    [ValidateScript({Test-Path $_ -PathType 'Container'})]
     $WimMntPath,
     [alias("L")]
     $LogPath,
+    [alias("LogRotate")]
+    $LogHistory,
     [switch]$NoBanner)
 
 If ($NoBanner -eq $False)
@@ -103,7 +108,7 @@ If ($NoBanner -eq $False)
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |                           "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                           "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            | |   | |                                __/ |        Mike Galvin        "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|        Version 22.03.27       |___/       https://gal.vin      "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|        Version 22.04.22       |___/       https://gal.vin      "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                                                                                     "
     Write-Host -Object ""
 }
@@ -186,7 +191,7 @@ Function Write-Log($Type, $Evt)
 ## Configure the apps to be removed.
 $AppsList = Get-Content $AppListFile | Where-Object {$_.trim() -ne ""}
 
-## getting Windows Version info
+## Getting Windows Version info
 $OSVMaj = [environment]::OSVersion.Version | Select-Object -expand major
 $OSVMin = [environment]::OSVersion.Version | Select-Object -expand minor
 $OSVBui = [environment]::OSVersion.Version | Select-Object -expand build
@@ -197,7 +202,7 @@ $OSV = "$OSVMaj" + "." + "$OSVMin" + "." + "$OSVBui"
 ##
 
 Write-Log -Type Conf -Evt "************ Running with the following config *************."
-Write-Log -Type Conf -Evt "Utility Version:.......22.03.27"
+Write-Log -Type Conf -Evt "Utility Version:.......22.04.22"
 Write-Log -Type Conf -Evt "Hostname:..............$Env:ComputerName."
 Write-Log -Type Conf -Evt "Windows Version:.......$OSV."
 Write-Log -Type Conf -Evt "Using list from file:..$AppListFile."
@@ -217,7 +222,7 @@ If ($Null -ne $WIndex)
 }
 
 else {
-    Write-Log -Type Conf -Evt "Wim Index:.............No Config."
+    Write-Log -Type Conf -Evt "Wim Index:.............No Config"
 }
 
 If ($Null -ne $WimMntPath)
@@ -226,7 +231,7 @@ If ($Null -ne $WimMntPath)
 }
 
 else {
-    Write-Log -Type Conf -Evt "Wim Index:.............No Config."
+    Write-Log -Type Conf -Evt "Wim Mount Path:........Default"
 }
 
 If ($Null -ne $LogPath)
@@ -236,6 +241,15 @@ If ($Null -ne $LogPath)
 
 else {
     Write-Log -Type Conf -Evt "Logs directory:........No Config"
+}
+
+If ($Null -ne $LogHistory)
+{
+    Write-Log -Type Conf -Evt "Logs to keep:..........$LogHistory days"
+}
+
+else {
+    Write-Log -Type Conf -Evt "Logs to keep:..........No Config"
 }
 
 Write-Log -Type Conf -Evt "Apps to remove:"
@@ -283,8 +297,6 @@ If ($Null -eq $WimFile)
             Write-Log -Type Info -Evt "Unable to find provisioned package: $App"
         }
     }
-
-    Write-Log -Type Info -Evt "Process finished."
 }
 
 ##
@@ -293,10 +305,24 @@ If ($Null -eq $WimFile)
 
 If ($Null -ne $WimFile)
 {
-    ## Mount the Image
-    Mount-WindowsImage -ImagePath $WimFile -Index $WIndex -Path $WimMntPath
+    ## Default Wim Mount Path if none is configured.
+    If ($Null -eq $WimMntPath)
+    {
+        $WimMntPath = "$Env:temp\RemMSStoreApps-WimMount"
+    }
 
-    ## Remove the Apps listed above or report if app not present
+    ## Make sure the mount directory exists, if it doesn't create it.
+    $WimMntPathFolderT = Test-Path $WimMntPath
+
+    If ($WimMntPathFolderT -eq $False)
+    {
+        New-Item $WimMntPath -ItemType Directory -Force | Out-Null
+    }
+
+    ## Mount the Image.
+    Mount-WindowsImage -ImagePath $WimFile -Index $WIndex -Path $WimMntPath | Out-Null
+
+    ## Remove the Apps listed above or report if app not present.
     ForEach ($App in $AppsList)
     {
         $ProPackageFullName = (Get-AppxProvisionedPackage -Path $WimMntPath | Where-Object {$_.Displayname -eq $App}).PackageName
@@ -313,10 +339,17 @@ If ($Null -ne $WimFile)
         }
     }
 
-    ## Dismount the image and save changes
-    Dismount-WindowsImage -Path $WimMntPath -Save
+    ## Dismount the image and save changes.
+    Dismount-WindowsImage -Path $WimMntPath -Save | Out-Null
+}
 
-    Write-Log -Type Info -Evt "Process finished."
+Write-Log -Type Info -Evt "Process finished."
+
+If ($Null -ne $LogHistory)
+{
+    ## Cleanup logs.
+    Write-Log -Type Info -Evt "Deleting logs older than: $LogHistory days"
+    Get-ChildItem -Path "$LogPath\Remove-MS-Store-Apps_*" -File | Where-Object CreationTime -lt (Get-Date).AddDays(-$LogHistory) | Remove-Item -Recurse
 }
 
 ## End
