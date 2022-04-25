@@ -27,18 +27,16 @@ Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions:
 
 ## How to get create a list of apps to remove
 
-To use the script you'll need to make a text file with a list of the apps to remove.
+To create a text file with a list of the apps to remove, run the following and copy and paste the app names you wish to remove into a txt file and save it.
 
-To get a list of all the apps, use this command in an elevated PowerShell session:
-
-``` powershell
-Get-AppxProvisionedPackage -Online | Select DisplayName
+```powershell
+Remove-MS-Store-Apps.ps1 -PCApps
 ```
 
-To get a list of built-in apps for the current user:
+To get a list of apps that are installed for the current user, use this command:
 
-``` powershell
-Get-AppxPackage | Select Name
+```powershell
+Remove-MS-Store-Apps.ps1 -UserApps
 ```
 
 ## How to find the index number of the image in the wim file
@@ -49,7 +47,9 @@ Run the following command to find out what images are present in the wim file:
 Get-WindowsImage -ImagePath "C:\foo\Windows 10\sources\install.wim" | Format-Table -Property ImageIndex, ImageName
 ```
 
-Here is a table of apps names in PowerShell and what they relate to in Windows. You can use this table to create your own removal list.
+## App Names Table
+
+Here is a table of app names in PowerShell and what they relate to in Windows.
 
 | PowerShell Display Name | App name | Windows 10 Notes | Windows 11 Notes |
 | ----------------------- | -------- | ---------------- | ---------------- |
@@ -118,14 +118,17 @@ Here’s a list of all the command line switches and example configurations.
 | -Wim | The full path to the wim file to remove the apps from. | ```C:\foo\Windows 10\sources\install.wim``` |
 | -WimIndex | The index number of the image to operate on. | 1 |
 | -WimMountPath | The full path to a folder that the wim file should be mounted to. If you do not configure this the ```%temp%``` dir will be used. | ```C:\foo\w10mnt``` |
+| -PCApps | List apps that are currently installed on the system. | N/A |
+| -UserApps | List apps that are currently installed for the user. | N/A |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
 | -L | The path to output the log file to. The file name will be The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | ```C:\scripts\logs``` |
 | -LogRotate | Instructs the utility to remove logs older than a specified number of days. | 30 |
+| -Help | Show usage instructions. | N/A |
 
 ### Example
 
 ``` txt
-Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-apps-2004.txt -L C:\scripts\logs
+Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
 ```
 
 The above command will remove the apps in the specified text file from the running system for all users, and will generate a log file.
