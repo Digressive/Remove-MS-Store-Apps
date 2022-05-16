@@ -113,12 +113,12 @@ If ($NoBanner -eq $False)
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   |_|  \_\___|_| |_| |_|\___/ \_/ \___| |_|_ |_|_____/  |_____/ \__\___/|_|  \___|  "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "       /\                     | |  | | | (_) (_) |                                   "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "      /  \   _ __  _ __  ___  | |  | | |_ _| |_| |_ _   _                            "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "     / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |                           "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |                           "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "     / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |        Mike Galvin        "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |      https://gal.vin      "
     Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                           "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            | |   | |                                __/ |        Mike Galvin        "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|        Version 22.04.26       |___/       https://gal.vin      "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "                            See -help for usage                                      "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            | |   | |                                __/ |     Version 22.04.26      "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|                               |___/     See -help for usage    "
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "              Donate: https://www.paypal.me/digressive                               "
     Write-Host -Object ""
 }
 
