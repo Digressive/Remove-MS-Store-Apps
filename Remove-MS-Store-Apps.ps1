@@ -273,7 +273,6 @@ else {
     ##
     ## Online Mode
     ##
-
     If ($Null -eq $WimFile)
     {
         ## Remove the Apps listed in the file or report if app not present.
@@ -307,7 +306,6 @@ else {
     ##
     ## Offline Mode
     ##
-
     If ($WimFile)
     {
         ## Default Wim Mount Path if none is configured.
