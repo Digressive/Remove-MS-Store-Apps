@@ -23,7 +23,7 @@ Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions:
 * The utility will remove specified provisioned apps from the system.
 * This utility can be used for imaging and OS deployment, as well as single user.
 * The utility requires a text file with a list of the apps to remove.
-* This utility has been tested on Windows 10 and Windows 11.
+* This utility has been tested on Windows 11 and Windows 10.
 
 ## How to get create a list of apps to remove
 
@@ -108,7 +108,7 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | Microsoft.ZuneVideo | Films & TV | No change | No change |
 | MicrosoftWindows.Client.WebExperience | None | N/A | New in Win 11 21H2 |
 
-### Configuration
+## Configuration
 
 Here’s a list of all the command line switches and example configurations.
 
@@ -125,7 +125,7 @@ Here’s a list of all the command line switches and example configurations.
 | -LogRotate | Instructs the utility to remove logs older than a specified number of days. | 30 |
 | -Help | Show usage instructions. | N/A |
 
-### Example
+## Example
 
 ``` txt
 Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
