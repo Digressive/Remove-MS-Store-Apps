@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 22.04.26
+.VERSION 22.05.30
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -104,34 +104,34 @@ Param(
 
 If ($NoBanner -eq $False)
 {
-    Write-Host -Object ""
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    _____                                 __  __  _____    _____ _                   "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   |  __ \                               |  \/  |/ ____|  / ____| |                  "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   | |__) |___ _ __ ___   _____   _____  | \  / | (___   | (___ | |_ ___  _ __ ___   "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   |  _  // _ \ '_ ' _ \ / _ \ \ / / _ \ | |\/| |\___ \   \___ \| __/ _ \| '__/ _ \  "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   | | \ \  __/ | | | | | (_) \ V /  __/ | |  | |____) |  ____) | || (_) | | |  __/  "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   |_|  \_\___|_| |_| |_|\___/ \_/ \___| |_|_ |_|_____/  |_____/ \__\___/|_|  \___|  "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "       /\                     | |  | | | (_) (_) |                                   "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "      /  \   _ __  _ __  ___  | |  | | |_ _| |_| |_ _   _                            "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "     / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |        Mike Galvin        "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "    / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |      https://gal.vin      "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "   /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                           "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            | |   | |                                __/ |     Version 22.04.26      "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "            |_|   |_|                               |___/     See -help for usage    "
-    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "              Donate: https://www.paypal.me/digressive                               "
-    Write-Host -Object ""
+    Write-Host -ForegroundColor Yellow -BackgroundColor Black -Object "
+     _____                                 __  __  _____    _____ _                     
+    |  __ \                               |  \/  |/ ____|  / ____| |                    
+    | |__) |___ _ __ ___   _____   _____  | \  / | (___   | (___ | |_ ___  _ __ ___     
+    |  _  // _ \ '_ ' _ \ / _ \ \ / / _ \ | |\/| |\___ \   \___ \| __/ _ \| '__/ _ \    
+    | | \ \  __/ | | | | | (_) \ V /  __/ | |  | |____) |  ____) | || (_) | | |  __/    
+    |_|  \_\___|_| |_| |_|\___/ \_/ \___| |_|_ |_|_____/  |_____/ \__\___/|_|  \___|    
+        /\                     | |  | | | (_) (_) |                                     
+       /  \   _ __  _ __  ___  | |  | | |_ _| |_| |_ _   _                              
+      / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |         Mike Galvin         
+     / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |       https://gal.vin       
+    /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                             
+             | |   | |                                __/ |      Version 22.05.30       
+             |_|   |_|                               |___/      See -help for usage     
+                                                                                        
+                          Donate: https://www.paypal.me/digressive                      
+"
 }
 
 If ($PSBoundParameters.Values.Count -eq 0 -or $Help)
 {
-    Write-Host "Usage:"
-    Write-Host "From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\apps-to-remote.txt]"
-    Write-Host "This will remove the apps in the txt file from your Windows installation for all users."
-    Write-Host ""
-    Write-Host "To operate on a wim file: -Wim [path\install.wim] -WimIndex [number] (optional) -WimMountPath [path\mnt-folder]"
-    Write-Host "To output a log: -L [path]. To remove logs produced by the utility older than X days: -LogRotate [number]."
-    Write-Host "To list apps for all users: -PCApps. To list apps for the current user: -UserApps. Run with no ASCII banner: -NoBanner"
-    Write-Host ""
+    Write-Host -Object "Usage:
+    From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\apps-to-remote.txt]
+    This will remove the apps in the txt file from your Windows installation for all users.
+
+    To operate on a wim file: -Wim [path\install.wim] -WimIndex [number] (optional) -WimMountPath [path\mnt-folder]
+    To output a log: -L [path]. To remove logs produced by the utility older than X days: -LogRotate [number].
+    To list apps for all users: -PCApps. To list apps for the current user: -UserApps. Run with no ASCII banner: -NoBanner"
 }
 
 else {
@@ -140,9 +140,7 @@ else {
     If ($LogPath)
     {
         ## Make sure the log directory exists.
-        $LogPathFolderT = Test-Path $LogPath
-
-        If ($LogPathFolderT -eq $False)
+        If ((Test-Path -Path $LogPath) -eq $False)
         {
             New-Item $LogPath -ItemType Directory -Force | Out-Null
         }
@@ -150,14 +148,10 @@ else {
         $LogFile = ("Remove-MS-Store-Apps_{0:yyyy-MM-dd_HH-mm-ss}.log" -f (Get-Date))
         $Log = "$LogPath\$LogFile"
 
-        $LogT = Test-Path -Path $Log
-
-        If ($LogT)
+        If (Test-Path -Path $Log)
         {
             Clear-Content -Path $Log
         }
-
-        Add-Content -Path $Log -Encoding ASCII -Value "$(Get-Date -Format "yyyy-MM-dd HH:mm:ss") [INFO] Log started"
     }
 
     ## Function to get date in specific format.
@@ -171,7 +165,7 @@ else {
     {
         If ($Type -eq "Info")
         {
-            If ($Null -ne $LogPath)
+            If ($LogPath)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [INFO] $Evt"
             }
@@ -181,7 +175,7 @@ else {
 
         If ($Type -eq "Succ")
         {
-            If ($Null -ne $LogPath)
+            If ($LogPath)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [SUCCESS] $Evt"
             }
@@ -191,7 +185,7 @@ else {
 
         If ($Type -eq "Err")
         {
-            If ($Null -ne $LogPath)
+            If ($LogPath)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [ERROR] $Evt"
             }
@@ -201,7 +195,7 @@ else {
 
         If ($Type -eq "Conf")
         {
-            If ($Null -ne $LogPath)
+            If ($LogPath)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$Evt"
             }
@@ -211,7 +205,7 @@ else {
     }
 
     ## Configure the apps to be removed.
-    If ($Null -ne $AppListFile)
+    If ($AppListFile)
     {
         $AppsList = Get-Content $AppListFile | Where-Object {$_.trim() -ne ""}
     }
@@ -227,31 +221,31 @@ else {
     ##
 
     Write-Log -Type Conf -Evt "************ Running with the following config *************."
-    Write-Log -Type Conf -Evt "Utility Version:.......22.04.26"
+    Write-Log -Type Conf -Evt "Utility Version:.......22.05.30"
     Write-Log -Type Conf -Evt "Hostname:..............$Env:ComputerName."
     Write-Log -Type Conf -Evt "Windows Version:.......$OSV."
 
-    If ($Null -ne $AppListFile)
+    If ($AppListFile)
     {
         Write-Log -Type Conf -Evt "Using list from file:..$AppListFile."
     }
 
-    If ($Null -ne $WimFile)
+    If ($WimFile)
     {
         Write-Log -Type Conf -Evt "Wim File:..............$WimFile."
     }
 
-    If ($Null -ne $WIndex)
+    If ($WIndex)
     {
         Write-Log -Type Conf -Evt "Wim Index:.............$WIndex."
     }
 
-    If ($Null -ne $WimMntPath)
+    If ($WimMntPath)
     {
         Write-Log -Type Conf -Evt "Wim Mount Path:........$WimMntPath."
     }
 
-    If ($Null -ne $LogPath)
+    If ($LogPath)
     {
         Write-Log -Type Conf -Evt "Logs directory:........$LogPath."
     }
@@ -261,7 +255,7 @@ else {
         Write-Log -Type Conf -Evt "Logs to keep:..........$LogHistory days"
     }
 
-    If ($Null -ne $AppListFile)
+    If ($AppListFile)
     {
         Write-Log -Type Conf -Evt "Apps to remove:"
 
@@ -315,7 +309,7 @@ else {
     ## Offline Mode
     ##
 
-    If ($Null -ne $WimFile)
+    If ($WimFile)
     {
         ## Default Wim Mount Path if none is configured.
         If ($Null -eq $WimMntPath)
@@ -324,9 +318,7 @@ else {
         }
 
         ## Make sure the mount directory exists, if it doesn't create it.
-        $WimMntPathFolderT = Test-Path $WimMntPath
-
-        If ($WimMntPathFolderT -eq $False)
+        If (Test-Path -Path $WimMntPath -eq $False)
         {
             New-Item $WimMntPath -ItemType Directory -Force | Out-Null
         }
