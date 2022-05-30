@@ -79,7 +79,7 @@
 
     .EXAMPLE
     Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
-    The above command will remove the apps in the specified text file from the running system for all users, and will generate a log file.
+    The above command will remove the apps in the specified text file from the running system for all users and will generate a log file.
 #>
 
 ## Set up command line switches.
@@ -219,7 +219,6 @@ else {
     ##
     ## Display the current config and log if configured.
     ##
-
     Write-Log -Type Conf -Evt "************ Running with the following config *************."
     Write-Log -Type Conf -Evt "Utility Version:.......22.05.30"
     Write-Log -Type Conf -Evt "Hostname:..............$Env:ComputerName."

@@ -131,4 +131,4 @@ Here’s a list of all the command line switches and example configurations.
 Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
 ```
 
-The above command will remove the apps in the specified text file from the running system for all users, and will generate a log file.
+The above command will remove the apps in the specified text file from the running system for all users and will generate a log file.
