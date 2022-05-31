@@ -129,9 +129,15 @@ If ($PSBoundParameters.Values.Count -eq 0 -or $Help)
     From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\apps-to-remote.txt]
     This will remove the apps in the txt file from your Windows installation for all users.
 
-    To operate on a wim file: -Wim [path\install.wim] -WimIndex [number] (optional) -WimMountPath [path\mnt-folder]
+    To operate on a wim file: -Wim [path\install.wim] -WimIndex [number] (optional: -WimMountPath [path\mnt-folder])
+
+    Run the following command to find out the WimIndex for your wim file:
+    Get-WindowsImage -ImagePath [path\install.wim] | Format-Table -Property ImageIndex, ImageName
+
     To output a log: -L [path]. To remove logs produced by the utility older than X days: -LogRotate [number].
-    To list apps for all users: -PCApps. To list apps for the current user: -UserApps. Run with no ASCII banner: -NoBanner"
+    To list apps for all users: -PCApps.
+    To list apps for the current user: -UserApps.
+    Run with no ASCII banner: -NoBanner"
 }
 
 else {
