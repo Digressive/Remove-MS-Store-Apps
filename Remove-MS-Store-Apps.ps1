@@ -321,7 +321,7 @@ else {
         }
 
         ## Make sure the mount directory exists, if it doesn't create it.
-        If (Test-Path -Path $WimMntPath -eq $False)
+        If ((Test-Path -Path $WimMntPath) -eq $False)
         {
             New-Item $WimMntPath -ItemType Directory -Force | Out-Null
         }
