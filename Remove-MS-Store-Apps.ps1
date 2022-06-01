@@ -210,10 +210,18 @@ else {
         }
     }
 
-    ## Configure the apps to be removed.
+    ## Check for the apps list file, if it exists then sanitise it and if it doesn't exist then report and exit.
     If ($AppListFile)
     {
-        $AppsList = Get-Content $AppListFile | Where-Object {$_.trim() -ne ""}
+        If (Test-Path -Path $AppListFile)
+        {
+            $AppsList = Get-Content $AppListFile | Where-Object {$_.trim() -ne ""}
+        }
+
+        else {
+            Write-Log -Type Err -Evt "The app list file $AppListFile does not exist."
+            Exit
+        }
     }
 
     ## Getting Windows Version info
