@@ -94,7 +94,7 @@ Param(
     [alias("WimMountPath")]
     $WimMntPath,
     [alias("L")]
-    $LogPath,
+    $LogPathUsr,
     [alias("LogRotate")]
     $LogHistory,
     [switch]$PCApps,
@@ -143,8 +143,11 @@ If ($PSBoundParameters.Values.Count -eq 0 -or $Help)
 else {
     ## If logging is configured, start logging.
     ## If the log file already exists, clear it.
-    If ($LogPath)
+    If ($LogPathUsr)
     {
+        ## Clean User entered string
+        $LogPath = $LogPathUsr.trimend('\')
+
         ## Make sure the log directory exists.
         If ((Test-Path -Path $LogPath) -eq $False)
         {
@@ -171,7 +174,7 @@ else {
     {
         If ($Type -eq "Info")
         {
-            If ($LogPath)
+            If ($LogPathUsr)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [INFO] $Evt"
             }
@@ -181,7 +184,7 @@ else {
 
         If ($Type -eq "Succ")
         {
-            If ($LogPath)
+            If ($LogPathUsr)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [SUCCESS] $Evt"
             }
@@ -191,7 +194,7 @@ else {
 
         If ($Type -eq "Err")
         {
-            If ($LogPath)
+            If ($LogPathUsr)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$(Get-DateFormat) [ERROR] $Evt"
             }
@@ -201,7 +204,7 @@ else {
 
         If ($Type -eq "Conf")
         {
-            If ($LogPath)
+            If ($LogPathUsr)
             {
                 Add-Content -Path $Log -Encoding ASCII -Value "$Evt"
             }
@@ -258,7 +261,7 @@ else {
         Write-Log -Type Conf -Evt "Wim Mount Path:........$WimMntPath."
     }
 
-    If ($LogPath)
+    If ($LogPathUsr)
     {
         Write-Log -Type Conf -Evt "Logs directory:........$LogPath."
     }
@@ -361,7 +364,7 @@ else {
     If ($PCApps)
     {
         Get-AppxProvisionedPackage -Online | Select DisplayName | Format-Table -HideTableHeaders
-        If ($LogPath)
+        If ($LogPathUsr)
         {
             Get-AppxProvisionedPackage -Online | Select DisplayName | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
         }
@@ -370,7 +373,7 @@ else {
     If ($UserApps)
     {
         Get-AppxPackage | Select Name | Format-Table -HideTableHeaders
-        If ($LogPath)
+        If ($LogPathUsr)
         {
             Get-AppxPackage | Select Name | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
         }
