@@ -227,6 +227,12 @@ else {
         }
     }
 
+    If ($null -eq $AppListFile -And $PCApps -eq $false -And $UserApps -eq $false)
+    {
+        Write-Log -Type Err -Evt "No app list specified."
+        Exit
+    }
+
     ## Getting Windows Version info
     $OSVMaj = [environment]::OSVersion.Version | Select-Object -expand major
     $OSVMin = [environment]::OSVersion.Version | Select-Object -expand minor
