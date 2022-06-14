@@ -326,19 +326,19 @@ else {
 
     If ($PCApps)
     {
-        Get-AppxProvisionedPackage -Online | Select DisplayName | Format-Table -HideTableHeaders
+        Get-AppxProvisionedPackage -Online | Select-Object DisplayName | Format-Table -HideTableHeaders
         If ($LogPathUsr)
         {
-            Get-AppxProvisionedPackage -Online | Select DisplayName | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
+            Get-AppxProvisionedPackage -Online | Select-Object DisplayName | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
         }
     }
 
     If ($UserApps)
     {
-        Get-AppxPackage | Select Name | Format-Table -HideTableHeaders
+        Get-AppxPackage | Select-Object Name | Format-Table -HideTableHeaders
         If ($LogPathUsr)
         {
-            Get-AppxPackage | Select Name | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
+            Get-AppxPackage | Select-Object Name | Format-Table -HideTableHeaders | Out-File -Append $Log -Encoding ASCII
         }
     }
 
