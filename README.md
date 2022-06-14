@@ -1,19 +1,20 @@
 # Remove MS Store Apps Utility
 
-Customisable Windows 10/11 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
+Customisable Windows 11/10 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
 
-For full instructions and documentation, [visit my site.](https://gal.vin/utils/remove-ms-store-apps-utility/)
+For full change log and more information, [visit my site.](https://gal.vin/utils/remove-ms-store-apps-utility/)
+
+Remove MS Store Apps Utility is available from:
+
+* [GitHub](https://github.com/Digressive/Remove-MS-Store-Apps)
+* [The Microsoft PowerShell Gallery](https://www.powershellgallery.com/packages/Remove-MS-Store-Apps)
 
 Please consider supporting my work:
 
-* Sign up [using Patreon.](https://www.patreon.com/mikegalvin)
-* Support with a one-time payment [using PayPal.](https://www.paypal.me/digressive)
+* Sign up using [Patreon](https://www.patreon.com/mikegalvin).
+* Support with a one-time donation using [PayPal](https://www.paypal.me/digressive).
 
-Remove MS Store Apps Utility can also be downloaded from:
-
-* [The Microsoft PowerShell Gallery](https://www.powershellgallery.com/packages/Remove-Win10-Apps)
-
-Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
+If you’d like to contact me, please leave a comment, send me a [tweet or DM](https://twitter.com/mikegalvin_), or you can join my [Discord server](https://discord.gg/5ZsnJ5k).
 
 -Mike
 
@@ -25,7 +26,7 @@ Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions:
 * The utility requires a text file with a list of the apps to remove.
 * This utility has been tested on Windows 11 and Windows 10.
 
-## How to get create a list of apps to remove
+## How to get a list of apps to remove
 
 To create a text file with a list of the apps to remove, run the following and copy and paste the app names you wish to remove into a txt file and save it.
 
@@ -44,7 +45,7 @@ Remove-MS-Store-Apps.ps1 -UserApps
 Run the following command to find out what images are present in the wim file:
 
 ``` powershell
-Get-WindowsImage -ImagePath "C:\foo\Windows 10\sources\install.wim" | Format-Table -Property ImageIndex, ImageName
+Get-WindowsImage -ImagePath [path\]install.wim | Format-Table -Property ImageIndex, ImageName
 ```
 
 ## App Names Table
@@ -114,21 +115,21 @@ Here’s a list of all the command line switches and example configurations.
 
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
-| -List | The full path to the txt file listing the apps to remove. | ```C:\scripts\w10-apps-2004.txt``` |
-| -Wim | The full path to the wim file to remove the apps from. | ```C:\foo\Windows 10\sources\install.wim``` |
-| -WimIndex | The index number of the image to operate on. | 1 |
-| -WimMountPath | The full path to a folder that the wim file should be mounted to. If you do not configure this the ```%temp%``` dir will be used. | ```C:\foo\w10mnt``` |
+| -List | The full path to the txt file listing the apps to remove. | [path\]apps-to-remove.txt |
+| -Wim | The full path to the wim file to remove the apps from. | [path\]install.wim |
+| -WimIndex | The index number of the image to operate on. | [number] |
+| -WimMountPath | The full path to a folder that the wim file should be mounted to. If you do not configure this temp dir will be used. | [path\] |
 | -PCApps | List apps that are currently installed on the system. | N/A |
 | -UserApps | List apps that are currently installed for the user. | N/A |
+| -L | The path to output the log file to. | [path\] |
+| -LogRotate | Remove logs produced by the utility older than X days | [number] |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
-| -L | The path to output the log file to. The file name will be The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log Do not add a trailing \ backslash. | ```C:\scripts\logs``` |
-| -LogRotate | Instructs the utility to remove logs older than a specified number of days. | 30 |
-| -Help | Show usage instructions. | N/A |
+| -Help | Display usage information. No arguments also displays help. | N/A |
 
 ## Example
 
 ``` txt
-Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
+[path\]Remove-MS-Store-Apps.ps1 -List [path\]apps-to-remove.txt
 ```
 
-The above command will remove the apps in the specified text file from the running system for all users and will generate a log file.
+This will remove the apps in the txt file from your Windows installation for all users.

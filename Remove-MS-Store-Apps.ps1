@@ -10,7 +10,7 @@
 
 .COPYRIGHT (C) Mike Galvin. All rights reserved.
 
-.TAGS Remove Clean up Microsoft Store Windows UWP in-box built-in included app Windows 10 11 Customisable removal utility
+.TAGS Remove Clean up Microsoft Store Windows UWP in-box built-in included app Windows 11 10 Customisable removal utility
 
 .LICENSEURI
 
@@ -30,56 +30,11 @@
 
 <#
     .SYNOPSIS
-    Remove MS Store Apps - Customisable Windows 10/11 Microsoft Store app removal utility
+    Remove MS Store Apps - Customisable Windows 11/10 Microsoft Store app removal utility
 
     .DESCRIPTION
-    Removes apps included in Windows 10/11
-
-    To retrieve the names of the apps available to all users, run the following command in an elevated PowerShell session:
-
-    Get-AppxProvisionedPackage -Online | Select Displayname
-
-    To retrieve the names of the apps available to only the current user, run the following command in a PowerShell session:
-    Get-AppxPackage | Select Name
-
-    .PARAMETER List
-    The full path to a txt file listing the apps to remove.
-
-    .PARAMETER Wim
-    The full path to the wim file to remove the apps from.
-
-    .PARAMETER WimIndex
-    The index number of the image to operate on.
-    Run the following command to find out what images are present in the wim file:
-    Get-WindowsImage -ImagePath "C:\foo\Windows 10\sources\install.wim" | Format-Table -Property ImageIndex, ImageName
-
-    .PARAMETER WimMountPath
-    The full path to a folder that the wim file should be mounted to.
-    If none is configured the %temp% folder will be used.
-
-    .PARAMETER PCApps
-    This switch will list all MS Store apps installed on the device.
-
-    .PARAMETER UserApps
-    This switch will list all MS Store apps installed for the user.
-
-    .PARAMETER NoBanner
-    Use this option to hide the ASCII art title in the console.
-
-    .PARAMETER L
-    The path to output the log file to.
-    The file name will be Remove-MS-Store-Apps_YYYY-MM-dd_HH-mm-ss.log
-    Do not add a trailing \ backslash.
-
-   .PARAMETER LogRotate
-    Instructs the utility to remove logs older than a specified number of days.
-
-    .PARAMETER Help
-    Show usage help in the command line.
-
-    .EXAMPLE
-    Remove-MS-Store-Apps.ps1 -List C:\scripts\w10-21H2-apps-provisioned.txt -L C:\scripts\logs
-    The above command will remove the apps in the specified text file from the running system for all users and will generate a log file.
+    Removes apps included in Windows 11/10.
+    Run with -help or no arguments for usage.
 #>
 
 ## Set up command line switches.
@@ -126,17 +81,19 @@ If ($NoBanner -eq $False)
 If ($PSBoundParameters.Values.Count -eq 0 -or $Help)
 {
     Write-Host -Object "Usage:
-    From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\apps-to-remote.txt]
+    From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\]apps-to-remove.txt
     This will remove the apps in the txt file from your Windows installation for all users.
 
-    To operate on a wim file: -Wim [path\install.wim] -WimIndex [number] (optional: -WimMountPath [path\mnt-folder])
-
-    Run the following command to find out the WimIndex for your wim file:
-    Get-WindowsImage -ImagePath [path\install.wim] | Format-Table -Property ImageIndex, ImageName
-
-    To output a log: -L [path]. To remove logs produced by the utility older than X days: -LogRotate [number].
     To list apps for all users: -PCApps.
     To list apps for the current user: -UserApps.
+
+    To operate on a wim file: -Wim [path\]install.wim -WimIndex [number] (optional: -WimMountPath [path\])
+
+    Run the following command to find out the WimIndex for your wim file:
+    Get-WindowsImage -ImagePath [path\]install.wim | Format-Table -Property ImageIndex, ImageName
+
+    To output a log: -L [path\].
+    To remove logs produced by the utility older than X days: -LogRotate [number].
     Run with no ASCII banner: -NoBanner"
 }
 
