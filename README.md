@@ -54,14 +54,16 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 
 | PowerShell Display Name | App name | Windows 10 Notes | Windows 11 Notes |
 | ----------------------- | -------- | ---------------- | ---------------- |
+| Clipchamp.Clipchamp | Clipchamp | N/A | New in Win 11 22H2 |
 | Microsoft.549981C3F5F10 | Cortana | New in 2004 | No change |
 | Microsoft.BingNews | Microsoft News | N/A | New in Win 11 21H2 |
 | Microsoft.BingWeather | Weather | No change | No change |
-| Microsoft.DesktopAppInstaller | None | No change | No change |
+| Microsoft.DesktopAppInstaller | winget | No change | No change |
 | Microsoft.GamingApp | Xbox | N/A | Name Changed from XboxApp |
 | Microsoft.GetHelp | Get Help | No change | No change |
 | Microsoft.Getstarted | Tips | No change | No change |
 | Microsoft.HEIFImageExtension | None | No change | No change |
+| Microsoft.HEVCVideoExtension | None | N/A | New in Win 11 22H2 |
 | Microsoft.Messaging | Messaging | Removed in 2004 | Not present |
 | Microsoft.Microsoft3DViewer | 3D Viewer | No change | Not present |
 | Microsoft.MicrosoftEdge.Stable | Microsoft Edge | New in 21H1 | No change |
@@ -75,6 +77,7 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | Microsoft.OneConnect | None | Removed in 2004 | Not present |
 | Microsoft.People | People | No change | No change |
 | Microsoft.PowerAutomateDesktop | Power Automate | N/A | New in Win 11 21H2 |
+| Microsoft.RawImageExtension | None | N/A | New in Win 11 22H2 |
 | Microsoft.Print3D | Print 3D | Removed in 2004 | Not present |
 | Microsoft.ScreenSketch | Snip & Sketch | No change | No change |
 | Microsoft.SecHealthUI | None | N/A | New in Win 11 21H2 |
@@ -105,8 +108,9 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | Microsoft.XboxIdentityProvider | None | No change | No change |
 | Microsoft.XboxSpeechToTextOverlay | None | No change | No change |
 | Microsoft.YourPhone | Your Phone | No change | No change |
-| Microsoft.ZuneMusic | Groove Music | No change | No change |
+| Microsoft.ZuneMusic | Groove Music | No change | App name is now Media Player |
 | Microsoft.ZuneVideo | Films & TV | No change | No change |
+| MicrosoftCorporationII.QuickAssist | Quick Assist | N/A | New in Win 11 22H2 |
 | MicrosoftWindows.Client.WebExperience | None | N/A | New in Win 11 21H2 |
 
 ## Configuration
