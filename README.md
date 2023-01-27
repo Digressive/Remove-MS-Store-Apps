@@ -14,7 +14,7 @@ Please consider supporting my work:
 * Sign up using [Patreon](https://www.patreon.com/mikegalvin).
 * Support with a one-time donation using [PayPal](https://www.paypal.me/digressive).
 
-If you’d like to contact me, please leave a comment, send me a [tweet or DM](https://twitter.com/mikegalvin_), or you can join my [Discord server](https://discord.gg/5ZsnJ5k).
+Please report issues on Github via the issues tab.
 
 -Mike
 
