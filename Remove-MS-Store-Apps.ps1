@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 22.05.30
+.VERSION 23.04.24
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -71,7 +71,7 @@ If ($NoBanner -eq $False)
           / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |         Mike Galvin         
          / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |       https://gal.vin       
         /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                             
-                 | |   | |                                __/ |      Version 22.05.30       
+                 | |   | |                                __/ |      Version 23.04.24       
                  |_|   |_|                               |___/      See -help for usage     
                                                                                             
                               Donate: https://www.paypal.me/digressive                      
@@ -170,6 +170,19 @@ else {
         }
     }
 
+    ## Function for Update Check
+    Function UpdateCheck()
+    {
+        $ScriptVersion = "23.04.24"
+        $RawSource = "https://raw.githubusercontent.com/Digressive/Remove-MS-Store-Apps/master/Remove-MS-Store-Apps.ps1"
+        $SourceCheck = Invoke-RestMethod -uri "$RawSource"
+        $VerCheck = Select-String -Pattern ".VERSION $ScriptVersion" -InputObject $SourceCheck
+        If ($null -eq $VerCheck)
+        {
+            Write-Log -Type Conf -Evt "*** There is an update available. ***"
+        }
+    }
+
     ## Check for the apps list file, if it exists then sanitise it and if it doesn't exist then report and exit.
     If ($AppListFile)
     {
@@ -199,39 +212,40 @@ else {
     ##
     ## Display the current config and log if configured.
     ##
-    Write-Log -Type Conf -Evt "************ Running with the following config *************."
-    Write-Log -Type Conf -Evt "Utility Version:.......22.05.30"
-    Write-Log -Type Conf -Evt "Hostname:..............$Env:ComputerName."
-    Write-Log -Type Conf -Evt "Windows Version:.......$OSV."
+    Write-Log -Type Conf -Evt "--- Running with the following config ---"
+    Write-Log -Type Conf -Evt "Utility Version: 23.04.24"
+    UpdateCheck ## Run Update checker function
+    Write-Log -Type Conf -Evt "Hostname: $Env:ComputerName."
+    Write-Log -Type Conf -Evt "Windows Version: $OSV."
 
     If ($AppListFile)
     {
-        Write-Log -Type Conf -Evt "Using list from file:..$AppListFile."
+        Write-Log -Type Conf -Evt "Using list from file: $AppListFile."
     }
 
     If ($WimFile)
     {
-        Write-Log -Type Conf -Evt "Wim File:..............$WimFile."
+        Write-Log -Type Conf -Evt "Wim File: $WimFile."
     }
 
     If ($WIndex)
     {
-        Write-Log -Type Conf -Evt "Wim Index:.............$WIndex."
+        Write-Log -Type Conf -Evt "Wim Index: $WIndex."
     }
 
     If ($WimMntPath)
     {
-        Write-Log -Type Conf -Evt "Wim Mount Path:........$WimMntPath."
+        Write-Log -Type Conf -Evt "Wim Mount Path: $WimMntPath."
     }
 
     If ($LogPathUsr)
     {
-        Write-Log -Type Conf -Evt "Logs directory:........$LogPath."
+        Write-Log -Type Conf -Evt "Logs directory: $LogPath."
     }
 
     If ($Null -ne $LogHistory)
     {
-        Write-Log -Type Conf -Evt "Logs to keep:..........$LogHistory days"
+        Write-Log -Type Conf -Evt "Logs to keep: $LogHistory days"
     }
 
     If ($AppListFile)
@@ -240,11 +254,11 @@ else {
 
         ForEach ($App in $AppsList)
         {
-            Write-Log -Type Conf -Evt ".......................$App"
+            Write-Log -Type Conf -Evt "$App"
         }
     }
 
-    Write-Log -Type Conf -Evt "************************************************************"
+    Write-Log -Type Conf -Evt "---"
     Write-Log -Type Info -Evt "Process started"
     ##
     ## Display current config ends here.

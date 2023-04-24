@@ -1,6 +1,6 @@
 # Remove MS Store Apps Utility
 
-Customisable Windows 11/10 Microsoft Store App removal utility, previously known as Remove-Win10-Apps.
+## Customisable Windows 10/11 Microsoft Store App removal utility, previously known as Remove-Win10-Apps
 
 For full change log and more information, [visit my site.](https://gal.vin/utils/remove-ms-store-apps-utility/)
 
@@ -20,11 +20,12 @@ Please report any problems via the ‘issues’ tab on GitHub.
 
 ## Features and Requirements
 
-* The utility will remove specified apps for the current logged on user.
-* The utility will remove specified provisioned apps from the system.
-* This utility can be used for imaging and OS deployment, as well as single user.
-* The utility requires a text file with a list of the apps to remove.
-* This utility has been tested on Windows 11 and Windows 10.
+* Remove specified apps for the current logged on user.
+* Remove specified apps from the system for all users.
+* Can be used for imaging and OS deployment, as well as individual user.
+* Can be used on an offline Windows image.
+* Requires a text file with a list of the apps to remove.
+* Tested on Windows 10 and Windows 11.
 
 ## How to get a list of apps to remove
 
@@ -42,7 +43,7 @@ Remove-MS-Store-Apps.ps1 -UserApps
 
 ## How to find the index number of the image in the wim file
 
-Run the following command to find out what images are present in the wim file:
+Run the following command to find out how many images are present in the wim file:
 
 ``` powershell
 Get-WindowsImage -ImagePath [path\]install.wim | Format-Table -Property ImageIndex, ImageName
@@ -137,3 +138,61 @@ Here’s a list of all the command line switches and example configurations.
 ```
 
 This will remove the apps in the txt file from your Windows installation for all users.
+
+## Change Log
+
+### 2023-04-24: Version 23.04.24
+
+* Added script update checker - shows if an update is available in the log and console.
+
+### 2022-06-14: Version 22.05.30
+
+* Added checks and balances to help with configuration as I'm very aware that the initial configuration can be troublesome. Running the utility manually is a lot more friendly and step-by-step now.
+* Added -Help to give usage instructions in the terminal. Running the script with no options will also trigger the -help switch.
+* Cleaned user entered paths so that trailing slashes no longer break things or have otherwise unintended results.
+* Added -LogRotate [days] to removed old logs created by the utility.
+* Streamlined config report so non configured options are not shown.
+* Added donation link to the ASCII banner.
+* Cleaned up code, removed unneeded log noise.
+
+### 2022-04-26: Version 22.04.26
+
+* Added -PCApps switch to list all MS Store apps on the system.
+* Added -UserApps switch to list all MS Store apps installed for the user.
+* Added -Help to give usage instructions in the terminal. Also running the script with no options will also trigger the -help switch.
+* Streamlined config report so non configured options are not shown.
+
+### 2022-04-22: Version 22.04.22
+
+* If the -WimMountPath is not configured by the user then the default Windows temp folder will be used instead.
+* If the -WimMountPath is configured by the user but the path does not exist, it will be created.
+* Added a -LogRotate option to delete logs older than X number of days.
+
+### 2022-03-27: Version 22.03.27
+
+* Utility now ignores blanks lines in Apps list file.
+
+### 2021-12-08: Version 21.12.08
+
+* Configured logs path now is created, if it does not exist.
+* Added OS version info.
+* Added Utility version info.
+* Added Hostname info.
+* Changed a variable to prevent conflicts with future PowerShell versions.
+
+### 2021-09-07: Version 07.09.21
+
+* Added ability to remove apps from offline images.
+
+### 2020-03-13: Version 20.03.13 ‘Cool’
+
+* Refactored code.
+* Backwards compatible.
+* Added logging.
+* Added config report when ran.
+* Added ASCII banner art when run in the console.
+* Added option to disable the ASCII banner art.
+
+### 2019-12-03 v2.0
+
+* First public release.
