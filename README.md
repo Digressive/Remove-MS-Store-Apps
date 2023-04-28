@@ -141,6 +141,10 @@ This will remove the apps in the txt file from your Windows installation for all
 
 ## Change Log
 
+### 2023-04-28: Version 23.04.28
+
+* Minor improvement to update checker. If the internet is not reachable it silently errors out.
+
 ### 2023-04-24: Version 23.04.24
 
 * Added script update checker - shows if an update is available in the log and console.
