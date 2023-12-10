@@ -11,7 +11,6 @@ Remove MS Store Apps Utility is available from:
 
 Please consider supporting my work:
 
-* Sign up using [Patreon](https://www.patreon.com/mikegalvin).
 * Support with a one-time donation using [PayPal](https://www.paypal.me/digressive).
 
 Please report any problems via the ‘issues’ tab on GitHub.
