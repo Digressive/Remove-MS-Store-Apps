@@ -12,7 +12,7 @@
 
 .TAGS Remove Clean up Microsoft Store Windows UWP in-box built-in included app Windows 11 10 Customisable removal utility
 
-.LICENSEURI
+.LICENSEURI https://github.com/Digressive/Remove-MS-Store-Apps?tab=MIT-1-ov-file
 
 .PROJECTURI https://gal.vin/utils/remove-ms-store-apps-utility/
 
