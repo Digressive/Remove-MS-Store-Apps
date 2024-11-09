@@ -54,16 +54,16 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 
 | PowerShell Display Name | App name | Windows 10 Notes | Windows 11 Notes |
 | ----------------------- | -------- | ---------------- | ---------------- |
-| Clipchamp.Clipchamp | Clipchamp | N/A | New in Win 11 22H2 |
+| Clipchamp.Clipchamp | Clipchamp | N/A | New in 22H2 |
 | Microsoft.549981C3F5F10 | Cortana | New in 2004 | No change |
-| Microsoft.BingNews | Microsoft News | N/A | New in Win 11 21H2 |
+| Microsoft.BingNews | Microsoft News | N/A | New in 21H2 |
 | Microsoft.BingWeather | Weather | No change | No change |
 | Microsoft.DesktopAppInstaller | winget | No change | No change |
 | Microsoft.GamingApp | Xbox | N/A | Name Changed from XboxApp |
 | Microsoft.GetHelp | Get Help | No change | No change |
 | Microsoft.Getstarted | Tips | No change | No change |
 | Microsoft.HEIFImageExtension | None | No change | No change |
-| Microsoft.HEVCVideoExtension | None | N/A | New in Win 11 22H2 |
+| Microsoft.HEVCVideoExtension | None | N/A | New in 22H2 |
 | Microsoft.Messaging | Messaging | Removed in 2004 | Not present |
 | Microsoft.Microsoft3DViewer | 3D Viewer | No change | Not present |
 | Microsoft.MicrosoftEdge.Stable | Microsoft Edge | New in 21H1 | No change |
@@ -71,20 +71,20 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | Microsoft.MicrosoftSolitaireCollection | Microsoft Solitaire Collection | No change | No change |
 | Microsoft.MicrosoftStickyNotes | Sticky Notes | No change | No change |
 | Microsoft.MixedReality.Portal | Mixed Reality Portal | No change | Not present |
-| Microsoft.Paint | Paint | N/A | New in Win 11 21H2 |
+| Microsoft.Paint | Paint | N/A | New in 21H2 |
 | Microsoft.MSPaint | Paint 3D | No change | Not present |
 | Microsoft.Office.OneNote | OneNote | No change | Not present |
 | Microsoft.OneConnect | None | Removed in 2004 | Not present |
 | Microsoft.People | People | No change | No change |
-| Microsoft.PowerAutomateDesktop | Power Automate | N/A | New in Win 11 21H2 |
-| Microsoft.RawImageExtension | None | N/A | New in Win 11 22H2 |
+| Microsoft.PowerAutomateDesktop | Power Automate | N/A | New in 21H2 |
+| Microsoft.RawImageExtension | None | N/A | New in 22H2 |
 | Microsoft.Print3D | Print 3D | Removed in 2004 | Not present |
 | Microsoft.ScreenSketch | Snip & Sketch | No change | No change |
-| Microsoft.SecHealthUI | None | N/A | New in Win 11 21H2 |
+| Microsoft.SecHealthUI | None | N/A | New in 21H2 |
 | Microsoft.SkypeApp | Skype | No change | Not present |
 | Microsoft.StorePurchaseApp | None | No change | No change |
-| Microsoft.Todos | Microsoft To Do | N/A | New in Win 11 21H2 |
-| Microsoft.UI.Xaml.2.4 | None | N/A | New in Win 11 21H2 |
+| Microsoft.Todos | Microsoft To Do | N/A | New in 21H2 |
+| Microsoft.UI.Xaml.2.4 | None | N/A | New in 21H2 |
 | Microsoft.VCLibs.140.00 | None | New in 2004 | No change |
 | Microsoft.VP9VideoExtensions | None | No change | No change |
 | Microsoft.Wallet | None | No change | Not present |
@@ -97,10 +97,10 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | microsoft.windowscommunicationsapps | (2) "Calendar" and "Mail" | No change | No change |
 | Microsoft.WindowsFeedbackHub | Feedback Hub | No change | No change |
 | Microsoft.WindowsMaps | Maps | No change | No change |
-| Microsoft.WindowsNotepad | Notepad | N/A | New in Win 11 21H2 |
+| Microsoft.WindowsNotepad | Notepad | N/A | New in 21H2 |
 | Microsoft.WindowsSoundRecorder | Voice Recorder | No change | No change |
 | Microsoft.WindowsStore | Microsoft Store | No change | No change |
-| Microsoft.WindowsTerminal | Terminal | N/A | New in Win 11 21H2 |
+| Microsoft.WindowsTerminal | Terminal | N/A | New in 21H2 |
 | Microsoft.Xbox.TCUI | None | No change | No change |
 | Microsoft.XboxApp | Xbox Console Companion | No change | Name changed to GamingApp |
 | Microsoft.XboxGameOverlay | None | No change | No change |
@@ -110,8 +110,8 @@ Here is a table of app names in PowerShell and what they relate to in Windows.
 | Microsoft.YourPhone | Your Phone | No change | No change |
 | Microsoft.ZuneMusic | Groove Music | No change | App name is now Media Player |
 | Microsoft.ZuneVideo | Films & TV | No change | No change |
-| MicrosoftCorporationII.QuickAssist | Quick Assist | N/A | New in Win 11 22H2 |
-| MicrosoftWindows.Client.WebExperience | None | N/A | New in Win 11 21H2 |
+| MicrosoftCorporationII.QuickAssist | Quick Assist | N/A | New in 22H2 |
+| MicrosoftWindows.Client.WebExperience | None | N/A | New in 21H2 |
 
 ## Configuration
 
@@ -119,13 +119,15 @@ Here’s a list of all the command line switches and example configurations.
 
 | Command Line Switch | Description | Example |
 | ------------------- | ----------- | ------- |
-| -List | The full path to the txt file listing the apps to remove. | [path\]apps-to-remove.txt |
+| -List | The full path to the txt file listing the apps to remove. | [path\]apps.txt |
 | -Wim | The full path to the wim file to remove the apps from. | [path\]install.wim |
 | -WimIndex | The index number of the image to operate on. | [number] |
 | -WimMountPath | The full path to a folder that the wim file should be mounted to. If you do not configure this temp dir will be used. | [path\] |
 | -PCApps | List apps that are currently installed on the system. | N/A |
 | -UserApps | List apps that are currently installed for the user. | N/A |
 | -L | The path to output the log file to. | [path\] |
+| -Uno | Changes the script to remove all apps NOT listed in the apps.txt file. | N/A |
+| -PCOnly | Only remove provisioned apps, does not take any action on the current users apps.| N/A |
 | -LogRotate | Remove logs produced by the utility older than X days | [number] |
 | -NoBanner | Use this option to hide the ASCII art title in the console. | N/A |
 | -Help | Display usage information. No arguments also displays help. | N/A |
@@ -139,6 +141,11 @@ Here’s a list of all the command line switches and example configurations.
 This will remove the apps in the txt file from your Windows installation for all users.
 
 ## Change Log
+
+### 2024-11-09: Version 24.11.09
+
+* Added new '-Uno' option which removes ALL apps not in the specified text file. The text file becomes an "apps to keep" list, instead of an "apps to remove" list.
+* Added new '-PCOnly' option which removes provisioned apps only. This will leave the apps for the current user untouched.
 
 ### 2023-04-28: Version 23.04.28
 

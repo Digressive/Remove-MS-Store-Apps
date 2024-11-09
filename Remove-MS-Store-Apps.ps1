@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 23.04.28
+.VERSION 24.11.09
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -54,6 +54,8 @@ Param(
     $LogHistory,
     [switch]$PCApps,
     [switch]$UserApps,
+    [switch]$Uno,
+    [switch]$PCOnly,
     [switch]$Help,
     [switch]$NoBanner)
 
@@ -71,7 +73,7 @@ If ($NoBanner -eq $False)
           / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |         Mike Galvin         
          / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |       https://gal.vin       
         /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                             
-                 | |   | |                                __/ |      Version 23.04.28       
+                 | |   | |                                __/ |      Version 24.11.09       
                  |_|   |_|                               |___/      See -help for usage     
                                                                                             
                               Donate: https://www.paypal.me/digressive                      
@@ -83,6 +85,11 @@ If ($PSBoundParameters.Values.Count -eq 0 -or $Help)
     Write-Host -Object "Usage:
     From an elevated terminal run: [path\]Remove-MS-Store-Apps.ps1 -List [path\]apps-to-remove.txt
     This will remove the apps in the txt file from your Windows installation for all users.
+
+    You can also run: [path\]Remove-MS-Store-Apps.ps1 -Uno -List [path\]apps-to-keep.txt
+    This will remove the all apps not in the txt file from your Windows installation for all users.
+
+    To remove only PC apps and leave the current user apps untouched use: -PCOnly
 
     To list apps for all users: -PCApps.
     To list apps for the current user: -UserApps.
@@ -173,7 +180,7 @@ else {
     ## Function for Update Check
     Function UpdateCheck()
     {
-        $ScriptVersion = "23.04.28"
+        $ScriptVersion = "24.11.09"
         $RawSource = "https://raw.githubusercontent.com/Digressive/Remove-MS-Store-Apps/master/Remove-MS-Store-Apps.ps1"
 
         try {
@@ -185,7 +192,6 @@ else {
                 Write-Log -Type Conf -Evt "*** There is an update available. ***"
             }
         }
-
         catch {
         }
     }
@@ -197,7 +203,6 @@ else {
         {
             $AppsList = Get-Content $AppListFile | Where-Object {$_.trim() -ne ""}
         }
-
         else {
             Write-Log -Type Err -Evt "The app list file $AppListFile does not exist."
             Exit
@@ -220,7 +225,7 @@ else {
     ## Display the current config and log if configured.
     ##
     Write-Log -Type Conf -Evt "--- Running with the following config ---"
-    Write-Log -Type Conf -Evt "Utility Version: 23.04.28"
+    Write-Log -Type Conf -Evt "Utility Version: 24.11.09"
     UpdateCheck ## Run Update checker function
     Write-Log -Type Conf -Evt "Hostname: $Env:ComputerName."
     Write-Log -Type Conf -Evt "Windows Version: $OSV."
@@ -255,13 +260,34 @@ else {
         Write-Log -Type Conf -Evt "Logs to keep: $LogHistory days"
     }
 
+    If ($PCOnly)
+    {
+        Write-Log -Type Conf -Evt "-PCOnly option is: $PCOnly."
+    }
+
+    If ($Uno)
+    {
+        Write-Log -Type Conf -Evt "-Uno option is: $Uno."
+    }
+
     If ($AppListFile)
     {
-        Write-Log -Type Conf -Evt "Apps to remove:"
-
-        ForEach ($App in $AppsList)
+        If ($Uno -eq $false)
         {
-            Write-Log -Type Conf -Evt "$App"
+            Write-Log -Type Conf -Evt "Apps to remove:"
+
+            ForEach ($App in $AppsList)
+            {
+                Write-Log -Type Conf -Evt "$App"
+            }
+        }
+        else {
+            Write-Log -Type Conf -Evt "Apps to keep:"
+
+            ForEach ($App in $AppsList)
+            {
+                Write-Log -Type Conf -Evt "$App"
+            }
         }
     }
 
@@ -276,34 +302,59 @@ else {
     ##
     If ($Null -eq $WimFile)
     {
-        ## Remove the Apps listed in the file or report if app not present.
-        ForEach ($App in $AppsList)
+        If ($Uno -eq $false)
         {
-            $PackageFullName = (Get-AppxPackage $App).PackageFullName
-            $ProPackageFullName = (Get-AppxProvisionedPackage -Online | Where-Object {$_.Displayname -eq $App}).PackageName
-
-            If ($PackageFullName)
+            ## Remove the Apps listed in the file or report if app not present.
+            ForEach ($App in $AppsList)
             {
-                Write-Log -Type Info -Evt "Removing Package: $App"
-                Remove-AppxPackage -Package $PackageFullName | Out-Null
-            }
+                $PackageFullName = (Get-AppxPackage $App).PackageFullName
+                $ProPackageFullName = (Get-AppxProvisionedPackage -Online | Where-Object {$_.DisplayName -eq $App}).PackageName
 
-            else {
-                Write-Log -Type Info -Evt "Unable to find package: $App"
-            }
+                If ($PCOnly -eq $false)
+                {
+                    If ($PackageFullName)
+                    {
+                        Write-Log -Type Info -Evt "Removing Package: $App"
+                        Remove-AppxPackage -Package $PackageFullName | Out-Null
+                    }
+                    else {
+                        Write-Log -Type Info -Evt "Unable to find package: $App"
+                    }
+                }
 
-            If ($ProPackageFullName)
+                If ($ProPackageFullName)
+                {
+                    Write-Log -Type Info -Evt "Removing Provisioned Package: $ProPackageFullName"
+                    Remove-AppxProvisionedPackage -Online -PackageName $ProPackageFullName | Out-Null
+                }
+                else {
+                    Write-Log -Type Info -Evt "Unable to find provisioned package: $App"
+                }
+            }
+        }
+        else {
+            $AppsToKeep = $AppsList -join "|"
+            $AppsFullName = Get-AppxPackage | Where-Object {$_.PackageFullName -NotMatch $AppsToKeep} | Select-Object -ExpandProperty PackageFullName
+            $ProvAppsFullName = Get-AppxProvisionedPackage -Online | Where-Object {$_.DisplayName -NotMatch $AppsToKeep} | Select-Object -ExpandProperty PackageName
+            
+            If ($PCOnly -eq $false)
             {
-                Write-Log -Type Info -Evt "Removing Provisioned Package: $ProPackageFullName"
-                Remove-AppxProvisionedPackage -Online -PackageName $ProPackageFullName | Out-Null
+                ForEach ($AppFullName in $AppsFullName)
+                {
+                    Write-Log -Type Info -Evt "Removing Package: $AppFullName"
+                    Remove-AppxPackage -Package $AppFullName | Out-Null
+                }
             }
 
-            else {
-                Write-Log -Type Info -Evt "Unable to find provisioned package: $App"
+            ForEach ($ProvAppFullName in $ProvAppsFullName)
+            {
+                Write-Log -Type Info -Evt "Removing Provisioned Package: $ProvAppFullName"
+                Remove-AppxProvisionedPackage -Online -PackageName $ProvAppFullName | Out-Null
             }
         }
     }
 
+    ## TODO Uno mode for WIM Image
     ##
     ## Offline Mode
     ##
@@ -324,20 +375,32 @@ else {
         ## Mount the Image.
         Mount-WindowsImage -ImagePath $WimFile -Index $WIndex -Path $WimMntPath | Out-Null
 
-        ## Remove the Apps listed above or report if app not present.
-        ForEach ($App in $AppsList)
+        If ($Uno -eq $false)
         {
-            $ProPackageFullName = (Get-AppxProvisionedPackage -Path $WimMntPath | Where-Object {$_.Displayname -eq $App}).PackageName
-
-            If ($ProPackageFullName)
+            ## Remove the Apps listed above or report if app not present.
+            ForEach ($App in $AppsList)
             {
-                Write-Log -Type Info -Evt "Removing Provisioned Package: $ProPackageFullName"
-                Remove-AppxProvisionedPackage -Path $WimMntPath -PackageName $ProPackageFullName | Out-Null
+                $ProPackageFullName = (Get-AppxProvisionedPackage -Path $WimMntPath | Where-Object {$_.DisplayName -eq $App}).PackageName
+
+                If ($ProPackageFullName)
+                {
+                    Write-Log -Type Info -Evt "Removing Provisioned Package: $ProPackageFullName"
+                    Remove-AppxProvisionedPackage -Path $WimMntPath -PackageName $ProPackageFullName | Out-Null
+                }
+                else
+                {
+                    Write-Log -Type Info -Evt "Unable to find provisioned package: $App"
+                }
             }
+        }
+        else {
+            $AppsToKeep = $AppsList -join "|"
+            $ProvAppsFullName = Get-AppxProvisionedPackage -Path $WimMntPath | Where-Object {$_.DisplayName -NotMatch $AppsToKeep} | Select-Object -ExpandProperty PackageName
 
-            else
+            ForEach ($ProvAppFullName in $ProvAppsFullName)
             {
-                Write-Log -Type Info -Evt "Unable to find provisioned package: $App"
+                Write-Log -Type Info -Evt "Removing Provisioned Package: $ProvAppFullName"
+                Remove-AppxProvisionedPackage -Path $WimMntPath -PackageName $ProvAppFullName | Out-Null
             }
         }
 
