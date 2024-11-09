@@ -216,11 +216,10 @@ else {
     }
 
     ## Getting Windows Version info
-    $OSVFull = Get-ComputerInfo | Select-Object OsName, OsBuildNumber, WindowsUBR
-    $OSVName = $OSVFull | Select-Object -ExpandProperty OsName
-    $OSVBNum = $OSVFull | Select-Object -ExpandProperty OsBuildNumber
-    $OSVWinUBR = $OSVFull | Select-Object -ExpandProperty WindowsUBR
-    $OSV = "$OSVName" + "." + "$OSVBNum" + "." + "$OSVWinUBR"
+    $OSVMaj = [environment]::OSVersion.Version | Select-Object -expand major
+    $OSVMin = [environment]::OSVersion.Version | Select-Object -expand minor
+    $OSVBui = [environment]::OSVersion.Version | Select-Object -expand build
+    $OSV = "$OSVMaj" + "." + "$OSVMin" + "." + "$OSVBui"
 
     ##
     ## Display the current config and log if configured.
