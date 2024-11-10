@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 24.11.09
+.VERSION 24.11.10
 
 .GUID 888f5987-8b64-4a4a-ab8e-00a1bc99ff54
 
@@ -73,7 +73,7 @@ If ($NoBanner -eq $False)
           / /\ \ | '_ \| '_ \/ __| | |  | | __| | | | __| | | |         Mike Galvin         
          / ____ \| |_) | |_) \__ \ | |__| | |_| | | | |_| |_| |       https://gal.vin       
         /_/    \_\ .__/| .__/|___/  \____/ \__|_|_|_|\__|\__, |                             
-                 | |   | |                                __/ |      Version 24.11.09       
+                 | |   | |                                __/ |      Version 24.11.10       
                  |_|   |_|                               |___/      See -help for usage     
                                                                                             
                               Donate: https://www.paypal.me/digressive                      
@@ -180,7 +180,7 @@ else {
     ## Function for Update Check
     Function UpdateCheck()
     {
-        $ScriptVersion = "24.11.09"
+        $ScriptVersion = "24.11.10"
         $RawSource = "https://raw.githubusercontent.com/Digressive/Remove-MS-Store-Apps/master/Remove-MS-Store-Apps.ps1"
 
         try {
@@ -216,19 +216,32 @@ else {
     }
 
     ## Getting Windows Version info
-    $OSVMaj = [environment]::OSVersion.Version | Select-Object -expand major
-    $OSVMin = [environment]::OSVersion.Version | Select-Object -expand minor
-    $OSVBui = [environment]::OSVersion.Version | Select-Object -expand build
-    $OSV = "$OSVMaj" + "." + "$OSVMin" + "." + "$OSVBui"
+    $PSV = $PSVersionTable.PSVersion.Major
+    If ($PSV -gt 5)
+    {
+        $OSVFull = Get-ComputerInfo | Select-Object OsName, OsBuildNumber, WindowsUBR
+        $OSN = $OSVFull | Select-Object -ExpandProperty OsName
+        $OSB = $OSVFull | Select-Object -ExpandProperty OsBuildNumber
+        $OSUBR = $OSVFull | Select-Object -ExpandProperty WindowsUBR
+        $OSV = "$OSN" + " " + "$OSB" + "." + "$OSUBR"
+    }
+    else {
+        $OSVFull = Get-ComputerInfo | Select-Object OsName, OsBuildNumber, OSDisplayVersion
+        $OSN = $OSVFull | Select-Object -ExpandProperty OsName
+        $OSB = $OSVFull | Select-Object -ExpandProperty OsBuildNumber
+        $OSDV = $OSVFull | Select-Object -ExpandProperty OSDisplayVersion
+        $OSV = "$OSN" + " " + "$OSDV" + " " + "$OSB"
+    }
 
     ##
     ## Display the current config and log if configured.
     ##
     Write-Log -Type Conf -Evt "--- Running with the following config ---"
-    Write-Log -Type Conf -Evt "Utility Version: 24.11.09"
+    Write-Log -Type Conf -Evt "Utility Version: 24.11.10"
     UpdateCheck ## Run Update checker function
     Write-Log -Type Conf -Evt "Hostname: $Env:ComputerName."
     Write-Log -Type Conf -Evt "Windows Version: $OSV."
+    Write-Log -Type Conf -Evt "PowerShell Version: $PSV."
 
     If ($AppListFile)
     {

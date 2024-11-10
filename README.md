@@ -142,6 +142,11 @@ This will remove the apps in the txt file from your Windows installation for all
 
 ## Change Log
 
+### 2024-11-10: Version 24.11.10
+
+* Added PowerShell version to the config text on startup.
+* Added new Window version get methods for both PowerShell 5 and 7 to the config text on startup.
+
 ### 2024-11-09: Version 24.11.09
 
 * Added new '-Uno' option which removes ALL apps not in the specified text file. The text file becomes an "apps to keep" list, instead of an "apps to remove" list.
